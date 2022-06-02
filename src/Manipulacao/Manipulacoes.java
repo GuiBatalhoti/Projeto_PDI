@@ -305,4 +305,43 @@ public class Manipulacoes
         //retorno final
         return imgSaida;
     }
+    
+    public static double[] rgbToHSL(int rgb)
+    {
+        double b = (0x0000ff & rgb)/255.0f;
+        double g = (0x0000ff & (rgb >> 8))/255.0f;
+        double r = (0x0000ff & (rgb >> 16))/255.0f;
+        
+        double cmax = Math.max(r, Math.max(g, b)); // maior entre r, g, b
+        double cmin = Math.min(r, Math.min(g, b)); // menor entre of r, g, b
+        double diff = cmax - cmin; // diferença entre o maior e o menor
+        double h = -1, s = -1;
+        
+        if (cmax == cmin) //se o maior e o menor forem iguais h=0
+            h = 0;
+ 
+        else if (cmax == b)
+            h = (60 * ((g - b) / diff) + 360) % 360;
+ 
+        else if (cmax == g)
+            h = (60 * ((b - b) / diff) + 120) % 360;
+ 
+        else if (cmax == b)
+            h = (60 * ((b - g) / diff) + 240) % 360;
+ 
+        if (cmax == 0)
+            s = 0;
+        else
+            s = (diff / cmax) * 100;
+        
+        double l = cmax*100;
+        
+        double[] retorno = new double[3];
+        
+        retorno[0] = h;
+        retorno[1] = s;
+        retorno[2] = l;
+        
+        return retorno;
+    }
 }

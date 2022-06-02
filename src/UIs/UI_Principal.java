@@ -56,6 +56,7 @@ public class UI_Principal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         abrirImg = new javax.swing.JMenuItem();
+        btnConversor = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnSepararCanais = new javax.swing.JMenuItem();
         btnTonsCinza = new javax.swing.JMenuItem();
@@ -123,6 +124,14 @@ public class UI_Principal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(abrirImg);
+
+        btnConversor.setText("Conversor RGB/HSL");
+        btnConversor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConversorActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnConversor);
 
         jMenuBar1.add(jMenu1);
 
@@ -370,6 +379,10 @@ public class UI_Principal extends javax.swing.JFrame {
     private void labelEntradaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelEntradaMouseMoved
         
     }//GEN-LAST:event_labelEntradaMouseMoved
+
+    private void btnConversorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConversorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConversorActionPerformed
     
     private void renderImgEntrada()
     {
@@ -420,6 +433,7 @@ public class UI_Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirImg;
     private javax.swing.JMenuItem btnBinarizacao;
+    private javax.swing.JMenuItem btnConversor;
     private javax.swing.JMenuItem btnHistograma;
     private javax.swing.JMenuItem btnLimiar;
     private javax.swing.JMenuItem btnMascaraMedia;
