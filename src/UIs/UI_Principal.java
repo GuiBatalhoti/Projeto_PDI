@@ -68,6 +68,7 @@ public class UI_Principal extends javax.swing.JFrame {
         btnLimiar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Projeto PDI");
         setResizable(false);
         setSize(new java.awt.Dimension(1000, 400));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -295,6 +296,7 @@ public class UI_Principal extends javax.swing.JFrame {
 
     private void btnSepararCanaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSepararCanaisActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 UI_Canais dialog = new UI_Canais(new javax.swing.JFrame(), true);
                 dialog.setVisible(true);
@@ -381,7 +383,13 @@ public class UI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_labelEntradaMouseMoved
 
     private void btnConversorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConversorActionPerformed
-        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                UI_Conversor dialog = new UI_Conversor(new javax.swing.JFrame(), true);
+                dialog.setVisible(true);
+            }
+        });
     }//GEN-LAST:event_btnConversorActionPerformed
     
     private void renderImgEntrada()

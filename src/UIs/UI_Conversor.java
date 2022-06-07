@@ -5,7 +5,7 @@
  */
 package UIs;
 
-import java.awt.Image;
+import Manipulacao.Conversor;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
@@ -32,12 +32,12 @@ public class UI_Conversor extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        labelR = new javax.swing.JLabel();
+        labelG = new javax.swing.JLabel();
+        labelB = new javax.swing.JLabel();
+        labelH = new javax.swing.JLabel();
+        labelS = new javax.swing.JLabel();
+        labelL = new javax.swing.JLabel();
         inputR = new javax.swing.JTextField();
         inputG = new javax.swing.JTextField();
         inputB = new javax.swing.JTextField();
@@ -45,58 +45,68 @@ public class UI_Conversor extends javax.swing.JDialog {
         inputS = new javax.swing.JTextField();
         inputL = new javax.swing.JTextField();
         saidaCor = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Conversor RGB/HSL");
 
-        jLabel1.setText("R:");
+        labelR.setText("R (0, 255):");
 
-        jLabel2.setText("G:");
+        labelG.setText("G (0, 255):");
 
-        jLabel3.setText("B:");
+        labelB.setText("B (0, 255):");
 
-        jLabel4.setText("H:");
+        labelH.setText("H (0, 239):");
 
-        jLabel5.setText("S:");
+        labelS.setText("S (0, 240):");
 
-        jLabel6.setText("L:");
+        labelL.setText("L (0, 240):");
 
-        inputR.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                inputRFocusLost(evt);
+        inputR.setText("0");
+        inputR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputRActionPerformed(evt);
             }
         });
 
-        inputG.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                inputGFocusLost(evt);
+        inputG.setText("0");
+        inputG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputGActionPerformed(evt);
             }
         });
 
-        inputB.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                inputBFocusLost(evt);
+        inputB.setText("0");
+        inputB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputBActionPerformed(evt);
             }
         });
 
-        inputH.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                inputHFocusLost(evt);
+        inputH.setText("0");
+        inputH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputHActionPerformed(evt);
             }
         });
 
-        inputS.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                inputSFocusLost(evt);
+        inputS.setText("0");
+        inputS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputSActionPerformed(evt);
             }
         });
 
-        inputL.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                inputLFocusLost(evt);
+        inputL.setText("0");
+        inputL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputLActionPerformed(evt);
             }
         });
 
         saidaCor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel1.setText("Pressionne ENTER para converter.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,103 +115,140 @@ public class UI_Conversor extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelH, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                            .addComponent(labelB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputR, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputG, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputB, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputH, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputS, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputL, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(saidaCor, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputR, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputG, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputB, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputH, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputS, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputL, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(saidaCor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(saidaCor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(saidaCor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
+                            .addComponent(labelR)
                             .addComponent(inputR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
+                            .addComponent(labelG)
                             .addComponent(inputG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
+                            .addComponent(labelB)
                             .addComponent(inputB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
+                            .addComponent(labelH)
                             .addComponent(inputH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
+                            .addComponent(labelS)
                             .addComponent(inputS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
+                            .addComponent(labelL)
                             .addComponent(inputL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void inputRFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputRFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputRFocusLost
-
-    private void inputGFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputGFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputGFocusLost
-
-    private void inputBFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputBFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputBFocusLost
-
-    private void inputHFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputHFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputHFocusLost
-
-    private void inputSFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputSFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputSFocusLost
-
-    private void inputLFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputLFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputLFocusLost
-    
-    private void pintaSaida(int cor)
-    {
-        BufferedImage saida = new BufferedImage(this.saidaCor.getHeight(), this.saidaCor.getWidth(), Image.SCALE_DEFAULT);
+    private void inputRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputRActionPerformed
+        int[] rgb =  this.getRGB();
+        this.setRGB(rgb);
         
-        for (int i = 0; i < saida.getHeight(); i++)
+        int[] hsl = Conversor.rgbToHSL(rgb[0], rgb[1], rgb[2]);
+        this.setHSL(hsl);
+        
+        this.pintaSaida(rgb);  
+    }//GEN-LAST:event_inputRActionPerformed
+
+    private void inputGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputGActionPerformed
+        int[] rgb =  this.getRGB();
+        this.setRGB(rgb);
+        
+        int[] hsl = Conversor.rgbToHSL(rgb[0], rgb[1], rgb[2]);
+        this.setHSL(hsl);
+        
+        this.pintaSaida(rgb);
+    }//GEN-LAST:event_inputGActionPerformed
+
+    private void inputBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputBActionPerformed
+        int[] rgb =  this.getRGB();
+        this.setRGB(rgb);
+        
+        int[] hsl = Conversor.rgbToHSL(rgb[0], rgb[1], rgb[2]);
+        this.setHSL(hsl);
+        
+        this.pintaSaida(rgb);
+    }//GEN-LAST:event_inputBActionPerformed
+
+    private void inputHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputHActionPerformed
+        int[] hsl = this.getHSL();
+        this.setHSL(hsl);
+        
+        int[] rgb;
+        rgb = Conversor.hslToRGB(hsl[0], hsl[1], hsl[2]);
+        
+        this.setRGB(rgb);
+        
+        this.pintaSaida(rgb);
+    }//GEN-LAST:event_inputHActionPerformed
+
+    private void inputSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSActionPerformed
+        int[] hsl = this.getHSL();
+        this.setHSL(hsl);
+        
+        int[] rgb;
+        rgb = Conversor.hslToRGB(hsl[0], hsl[1], hsl[2]);
+        
+        this.setRGB(rgb);
+        
+        this.pintaSaida(rgb);
+    }//GEN-LAST:event_inputSActionPerformed
+
+    private void inputLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputLActionPerformed
+        int[] hsl = this.getHSL();
+        this.setHSL(hsl);
+        
+        int[] rgb;
+        rgb = Conversor.hslToRGB(hsl[0], hsl[1], hsl[2]);
+        
+        this.setRGB(rgb);
+        
+        this.pintaSaida(rgb);
+    }//GEN-LAST:event_inputLActionPerformed
+    
+    private void pintaSaida(int[] rgb)
+    {
+        BufferedImage saida = new BufferedImage(this.saidaCor.getWidth(), this.saidaCor.getHeight(), BufferedImage.SCALE_DEFAULT);
+        
+        int cor = (rgb[0] << 16)  | (rgb[1] << 8)  | rgb[2] ;
+        
+        for (int i = 0; i < saida.getWidth(); i++)
         {
-            for (int j = 0; j < saida.getWidth(); i++)
+            for (int j = 0; j < saida.getHeight(); j++)
             {
                 saida.setRGB(i, j, cor);
             }
@@ -210,24 +257,90 @@ public class UI_Conversor extends javax.swing.JDialog {
         this.saidaCor.setIcon(new ImageIcon(saida));
     }
     
-    private int pegaCorRGB()
+    private int[] getRGB()
     {
-        int R = Integer.valueOf(this.inputR.getText());
-        int G = Integer.valueOf(this.inputG.getText());
-        int B = Integer.valueOf(this.inputB.getText());
+        int[] rgb = new int[3];
         
-        int cor = R | (G << 8) | (B << 16);
+        if (!"".equals(this.inputR.getText()))
+        {
+            if (Integer.valueOf(this.inputR.getText()) < 0)
+                rgb[0] = 0;
+            else if (Integer.valueOf(this.inputR.getText()) > 255)
+                rgb[0] = 255;
+            else
+                rgb[0] = Integer.valueOf(this.inputR.getText());
+        }
+        if (!"".equals(this.inputG.getText()))
+        {
+            if (Integer.valueOf(this.inputG.getText()) < 0)
+                rgb[1] = 0;
+            else if (Integer.valueOf(this.inputG.getText()) > 255)
+                rgb[1] = 255;
+            else
+                rgb[1] = Integer.valueOf(this.inputG.getText());
+        }
+        if (!"".equals(this.inputB.getText()))
+        {
+            if (Integer.valueOf(this.inputB.getText()) < 0)
+                rgb[2] = 0;
+            else if (Integer.valueOf(this.inputB.getText()) > 255)
+                rgb[2] = 255;
+            else
+                rgb[2] = Integer.valueOf(this.inputB.getText());
+        }
         
-        return cor;
+        return rgb;
     }
     
-    private int pegaCorHSL()
+    private int[] getHSL()
     {
-        int H = Integer.valueOf(this.inputH.getText());
-        int S = Integer.valueOf(this.inputS.getText());
-        int L = Integer.valueOf(this.inputL.getText());
-
-        return 1;
+        int[] hsl = new int[3];
+        
+        if (!"".equals(this.inputH.getText()))
+        {
+            if (Integer.valueOf(this.inputH.getText()) < 0)
+                hsl[0] = 0;
+            else if (Integer.valueOf(this.inputH.getText()) > 239)
+                hsl[0] = 239;
+            else
+                hsl[0] = Integer.valueOf(this.inputH.getText());
+        }
+        
+        if (!"".equals(this.inputS.getText()))
+        {
+            if (Integer.valueOf(this.inputS.getText()) < 0)
+                hsl[1] = 0;
+            else if (Integer.valueOf(this.inputS.getText()) > 240)
+                hsl[1] = 240;
+            else
+                hsl[1] = Integer.valueOf(this.inputS.getText());
+        }
+        
+        if (!"".equals(this.inputL.getText()))
+        {
+            if (Integer.valueOf(this.inputL.getText()) < 0)
+                hsl[2] = 0;
+            else if (Integer.valueOf(this.inputL.getText()) > 240)
+                hsl[2] = 0;
+            else
+                hsl[2] = Integer.valueOf(this.inputL.getText());
+        }
+        
+        return hsl;
+    }
+    
+    private void setRGB(int[] rgb)
+    {
+        this.inputR.setText(String.valueOf(rgb[0]));
+        this.inputG.setText(String.valueOf(rgb[1]));
+        this.inputB.setText(String.valueOf(rgb[2]));
+    }
+    
+    private void setHSL(int[] hsl)
+    {
+        this.inputH.setText(String.valueOf(hsl[0]));
+        this.inputS.setText(String.valueOf(hsl[1]));
+        this.inputL.setText(String.valueOf(hsl[2]));
     }
     
     /**
@@ -280,11 +393,12 @@ public class UI_Conversor extends javax.swing.JDialog {
     private javax.swing.JTextField inputR;
     private javax.swing.JTextField inputS;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel labelB;
+    private javax.swing.JLabel labelG;
+    private javax.swing.JLabel labelH;
+    private javax.swing.JLabel labelL;
+    private javax.swing.JLabel labelR;
+    private javax.swing.JLabel labelS;
     private javax.swing.JLabel saidaCor;
     // End of variables declaration//GEN-END:variables
 }

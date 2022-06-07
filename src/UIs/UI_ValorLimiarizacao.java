@@ -35,6 +35,7 @@ public class UI_ValorLimiarizacao extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Entrada Valor");
 
         labelValor.setText("Escreva um valor inteiro para a Limiarização da imagem:");
 
