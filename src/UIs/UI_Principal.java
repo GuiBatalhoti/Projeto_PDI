@@ -8,7 +8,7 @@ package UIs;
 import Manipulacao.AberturaImg;
 import Manipulacao.Histograma;
 import Manipulacao.Manipulacoes;
-import java.awt.Image;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -42,8 +42,6 @@ public class UI_Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelSaida = new javax.swing.JLabel();
-        labelEntrada = new javax.swing.JLabel();
         btnTransfere = new javax.swing.JButton();
         label1 = new javax.swing.JLabel();
         label2 = new javax.swing.JLabel();
@@ -53,6 +51,11 @@ public class UI_Principal extends javax.swing.JFrame {
         labelCoordY = new javax.swing.JLabel();
         labelPixel = new javax.swing.JLabel();
         labelCorPixel = new javax.swing.JLabel();
+        painelEntrada = new javax.swing.JScrollPane();
+        labelEntrada = new javax.swing.JLabel();
+        painelSaida = new javax.swing.JScrollPane();
+        labelSaida = new javax.swing.JLabel();
+        labelRGB = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         abrirImg = new javax.swing.JMenuItem();
@@ -77,16 +80,6 @@ public class UI_Principal extends javax.swing.JFrame {
             }
         });
 
-        labelSaida.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelSaida.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        labelEntrada.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelEntrada.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                labelEntradaMouseMoved(evt);
-            }
-        });
-
         btnTransfere.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnTransfere.setText("<=");
         btnTransfere.addActionListener(new java.awt.event.ActionListener() {
@@ -101,15 +94,33 @@ public class UI_Principal extends javax.swing.JFrame {
 
         labelX.setText("X =");
 
+        labelCoordX.setText("0");
         labelCoordX.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         labelY.setText("Y =");
 
+        labelCoordY.setText("0");
         labelCoordY.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         labelPixel.setText("Pixel:");
 
         labelCorPixel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        labelCorPixel.setOpaque(true);
+
+        labelEntrada.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelEntrada.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        labelEntrada.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                labelEntradaMouseMoved(evt);
+            }
+        });
+        painelEntrada.setViewportView(labelEntrada);
+
+        labelSaida.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelSaida.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        painelSaida.setViewportView(labelSaida);
+
+        labelRGB.setText("(0,0,0)");
 
         jMenu1.setText("Arquivo");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -214,31 +225,31 @@ public class UI_Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelX)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCoordX, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelY)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCoordY, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelPixel)
-                        .addGap(3, 3, 3)
-                        .addComponent(labelCorPixel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(painelEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTransfere, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                                .addComponent(btnTransfere, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(labelX)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelCoordX, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelY)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelCoordY, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(labelPixel)
+                                .addGap(3, 3, 3)
+                                .addComponent(labelCorPixel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelRGB, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(painelSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -249,23 +260,25 @@ public class UI_Principal extends javax.swing.JFrame {
                     .addComponent(label1)
                     .addComponent(label2))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(labelEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelSaida)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(139, 139, 139)
                         .addComponent(btnTransfere))
-                    .addComponent(labelSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(painelEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelX)
-                        .addComponent(labelCoordX, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelY)
-                        .addComponent(labelCoordY, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(labelPixel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelCorPixel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelX)
+                            .addComponent(labelCoordX, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelY)
+                            .addComponent(labelCoordY, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelPixel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelCorPixel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelRGB))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -351,10 +364,6 @@ public class UI_Principal extends javax.swing.JFrame {
         this.renderImgSaida();
     }//GEN-LAST:event_btnMascaraMedianaActionPerformed
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-
-    }//GEN-LAST:event_formWindowActivated
-
     private void btnTonsCinzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTonsCinzaActionPerformed
         //transforma a imgem em tons de cinza, salva na classe AberturaImg e renderiza no label de saída
         this.imgSaida = Manipulacoes.tonsCinza(this.imgEntrada);
@@ -378,10 +387,6 @@ public class UI_Principal extends javax.swing.JFrame {
         this.renderImgSaida();
     }//GEN-LAST:event_btnLimiarActionPerformed
 
-    private void labelEntradaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelEntradaMouseMoved
-        
-    }//GEN-LAST:event_labelEntradaMouseMoved
-
     private void btnConversorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConversorActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -391,17 +396,49 @@ public class UI_Principal extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btnConversorActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+
+    }//GEN-LAST:event_formWindowActivated
+
+    private void labelEntradaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelEntradaMouseMoved
+       
+        if(this.imgEntrada != null)
+        {
+            int x = evt.getX();
+            int y = evt.getY();
+            if(x > this.imgEntrada.getWidth() || y > this.imgEntrada.getHeight())
+            {
+                this.labelCoordX.setText(String.valueOf(this.imgEntrada.getWidth()));
+                this.labelCoordY.setText(String.valueOf(this.imgEntrada.getHeight()));
+            }
+            else
+            {
+                this.labelCoordX.setText(String.valueOf(x));
+                this.labelCoordY.setText(String.valueOf(y));
+                
+                int cor = this.imgEntrada.getRGB(x, y);
+                Color rgb = new Color(cor);
+                this.labelCorPixel.setBackground(rgb);
+                this.labelCorPixel.setOpaque(true);
+                
+                this.labelRGB.setText("(" + rgb.getRed()+ ", " + rgb.getGreen() + ", " + rgb.getBlue() + ")");
+            }
+        }
+    }//GEN-LAST:event_labelEntradaMouseMoved
     
     private void renderImgEntrada()
     {
         //faz a renderização da imagem no label de entrada
-        this.labelEntrada.setIcon(new ImageIcon(this.imgEntrada.getScaledInstance(this.labelEntrada.getWidth(), this.labelEntrada.getHeight(), Image.SCALE_DEFAULT)));
+        this.labelEntrada.setSize(this.imgEntrada.getWidth(), this.imgEntrada.getHeight());
+        this.labelEntrada.setIcon(new ImageIcon(this.imgEntrada));
     }
     
     private void renderImgSaida()
     {
         //faz a renderização da imagem no label de saída
-        this.labelSaida.setIcon(new ImageIcon(this.imgSaida.getScaledInstance(this.labelSaida.getWidth(), this.labelSaida.getHeight(), Image.SCALE_DEFAULT)));
+        this.labelSaida.setSize(this.imgSaida.getWidth(), this.imgSaida.getHeight());
+        this.labelSaida.setIcon(new ImageIcon(this.imgSaida));
     }
     
     
@@ -460,8 +497,11 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel labelCorPixel;
     private javax.swing.JLabel labelEntrada;
     private javax.swing.JLabel labelPixel;
+    private javax.swing.JLabel labelRGB;
     private javax.swing.JLabel labelSaida;
     private javax.swing.JLabel labelX;
     private javax.swing.JLabel labelY;
+    private javax.swing.JScrollPane painelEntrada;
+    private javax.swing.JScrollPane painelSaida;
     // End of variables declaration//GEN-END:variables
 }

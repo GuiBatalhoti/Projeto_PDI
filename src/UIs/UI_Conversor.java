@@ -6,6 +6,7 @@
 package UIs;
 
 import Manipulacao.Conversor;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
@@ -105,6 +106,7 @@ public class UI_Conversor extends javax.swing.JDialog {
         });
 
         saidaCor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        saidaCor.setOpaque(true);
 
         jLabel1.setText("Pressionne ENTER para converter.");
 
@@ -242,19 +244,8 @@ public class UI_Conversor extends javax.swing.JDialog {
     
     private void pintaSaida(int[] rgb)
     {
-        BufferedImage saida = new BufferedImage(this.saidaCor.getWidth(), this.saidaCor.getHeight(), BufferedImage.SCALE_DEFAULT);
-        
-        int cor = (rgb[0] << 16)  | (rgb[1] << 8)  | rgb[2] ;
-        
-        for (int i = 0; i < saida.getWidth(); i++)
-        {
-            for (int j = 0; j < saida.getHeight(); j++)
-            {
-                saida.setRGB(i, j, cor);
-            }
-        }
-        
-        this.saidaCor.setIcon(new ImageIcon(saida));
+        Color cor = new Color(rgb[0], rgb[1], rgb[2]);  
+        this.saidaCor.setBackground(cor);
     }
     
     private int[] getRGB()
