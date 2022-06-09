@@ -69,16 +69,12 @@ public class UI_Principal extends javax.swing.JFrame {
         btnMascaraMediana = new javax.swing.JMenuItem();
         btnBinarizacao = new javax.swing.JMenuItem();
         btnLimiar = new javax.swing.JMenuItem();
+        btnSaltPeper = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Projeto PDI");
         setResizable(false);
         setSize(new java.awt.Dimension(1000, 400));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
 
         btnTransfere.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnTransfere.setText("<=");
@@ -212,6 +208,14 @@ public class UI_Principal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(btnLimiar);
+
+        btnSaltPeper.setText("Salt-Peper");
+        btnSaltPeper.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaltPeperActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnSaltPeper);
 
         jMenuBar1.add(jMenu2);
 
@@ -397,10 +401,6 @@ public class UI_Principal extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_btnConversorActionPerformed
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-
-    }//GEN-LAST:event_formWindowActivated
-
     private void labelEntradaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelEntradaMouseMoved
        
         if(this.imgEntrada != null)
@@ -411,6 +411,9 @@ public class UI_Principal extends javax.swing.JFrame {
             {
                 this.labelCoordX.setText(String.valueOf(this.imgEntrada.getWidth()));
                 this.labelCoordY.setText(String.valueOf(this.imgEntrada.getHeight()));
+                this.labelCorPixel.setBackground(Color.BLACK);                
+                this.labelRGB.setText("(0, 0, 0)");
+                
             }
             else
             {
@@ -419,13 +422,16 @@ public class UI_Principal extends javax.swing.JFrame {
                 
                 int cor = this.imgEntrada.getRGB(x, y);
                 Color rgb = new Color(cor);
-                this.labelCorPixel.setBackground(rgb);
-                this.labelCorPixel.setOpaque(true);
-                
+                this.labelCorPixel.setBackground(rgb);                
                 this.labelRGB.setText("(" + rgb.getRed()+ ", " + rgb.getGreen() + ", " + rgb.getBlue() + ")");
             }
         }
     }//GEN-LAST:event_labelEntradaMouseMoved
+
+    private void btnSaltPeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaltPeperActionPerformed
+        this.imgSaida = Manipulacoes.saltPeper(this.imgEntrada);
+        this.renderImgSaida();
+    }//GEN-LAST:event_btnSaltPeperActionPerformed
     
     private void renderImgEntrada()
     {
@@ -484,6 +490,7 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnMascaraMedia;
     private javax.swing.JMenuItem btnMascaraMediana;
     private javax.swing.JMenuItem btnNegativa;
+    private javax.swing.JMenuItem btnSaltPeper;
     private javax.swing.JMenuItem btnSepararCanais;
     private javax.swing.JMenuItem btnTonsCinza;
     private javax.swing.JButton btnTransfere;

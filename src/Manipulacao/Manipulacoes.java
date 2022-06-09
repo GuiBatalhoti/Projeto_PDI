@@ -5,9 +5,11 @@
  */
 package Manipulacao;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  *
@@ -304,5 +306,32 @@ public class Manipulacoes
         
         //retorno final
         return imgSaida;
+    }
+    
+    public static BufferedImage saltPeper(BufferedImage img)
+    {
+        int area = img.getWidth() * img.getHeight();
+        int qtdPercent = (int) (area * 0.1f);
+        
+        BufferedImage saida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+        saida.getGraphics().drawImage(img, 0, 0, null);
+        
+        Random gerador = new Random();
+        
+        for (int i = 0; i <= qtdPercent/2; i++)
+        {
+            int j = gerador.nextInt(img.getWidth());
+            int k = gerador.nextInt(img.getHeight());
+            saida.setRGB(j, k, Color.WHITE.getRGB());
+        }
+        
+        for (int i = 0; i <= qtdPercent/2; i++)
+        {
+            int j = gerador.nextInt(img.getWidth());
+            int k = gerador.nextInt(img.getHeight());
+            saida.setRGB(j, k, Color.BLACK.getRGB());
+        }
+        
+        return saida;
     }
 }
