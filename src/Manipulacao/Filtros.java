@@ -8,14 +8,13 @@ package Manipulacao;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
  *
  * @author Guilherme
  */
-public class Manipulacoes 
+public class Filtros 
 {
 
     public static BufferedImage tonsCinza(BufferedImage img) 
@@ -36,9 +35,9 @@ public class Manipulacoes
                 int rgb = img.getRGB(i, j); //pegando o valor RGB do pixel
 
                 //manipulação dos bit para pegar o valor de uma cor específica
-                int blue = 0x0000ff & rgb;
-                int green = 0x0000ff & (rgb >> 8);
-                int red = 0x0000ff & (rgb >> 16);
+                int blue = 0xff & rgb;
+                int green = 0xff & (rgb >> 8);
+                int red = 0xff & (rgb >> 16);
 
                 //cálculo do valor em tons de cinza
                 int lum = (int) (red * 0.299 + green * 0.587 + blue * 0.114);
@@ -72,9 +71,9 @@ public class Manipulacoes
                 int rgb = abertura.getImg().getRGB(i, j); //pegando o valor RGB do pixel
 
                 //manipulação dos bit para pegar o valor de uma cor específica
-                int red = 0x0000ff & (rgb >> 16);
-                int green = 0x0000ff & (rgb >> 8);
-                int blue = 0x0000ff & rgb;
+                int red = 0xff & (rgb >> 16);
+                int green = 0xff & (rgb >> 8);
+                int blue = 0xff & rgb;
 
                 //montagem das imagens de saída em canais separados
                 vermelho.setRGB(i, j, (red << 16));
@@ -109,9 +108,9 @@ public class Manipulacoes
                 int rgb = img.getRGB(i, j); // peagando o valor RGB do píxel
 
                 //inversão do valor de cada um dos canais dos píxels
-                int blue = 255 - (0x0000ff & rgb);
-                int green = 255 - (0x0000ff & (rgb >> 8));
-                int red = 255 - (0x0000ff & (rgb >> 16));
+                int blue = 255 - (0xff & rgb);
+                int green = 255 - (0xff & (rgb >> 8));
+                int red = 255 - (0xff & (rgb >> 16));
 
                 //montagem da imagem invertida de saída
                 invertida.setRGB(i, j, blue | (green << 8) | (red << 16));
@@ -182,94 +181,6 @@ public class Manipulacoes
         return contagem;
     }
     
-    public static BufferedImage convolucaoGenerica(BufferedImage img, float[][] mascara)
-    {
-        if (img == null) //se nada estiver aberto ou já convertido para tons de cinza
-        {
-            return null;
-        }
-        
-        //montando a imagem de saída
-        BufferedImage imgSaida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
-        
-        //percorrendo a imagemd e saída
-        for (int i = 1; i <= (imgSaida.getWidth()-2); i++)
-        {
-            for (int j = 1; j <= (imgSaida.getHeight()-2); j++)
-            {
-                //armazena o tom do pixel
-                float tom = 0;           
-                
-                //percorre a máscara e faz o cálculo com a máscara
-                for (int k = -1; k < mascara.length-1; k++)
-                {
-                    for (int l = -1; l < mascara[0].length-1; l++)
-                    {
-                        tom += (img.getRGB(i+k, j+l) & 0xff) * mascara[k+1][l+1];
-                    }
-                }
-                
-                /*
-                seria a mesma coisa q o loop acima:
-                tons += (abertura.getImgCinza().getRGB(i-1, j-1) & 0xff);;
-                tons += (abertura.getImgCinza().getRGB(i-1, j) & 0xff);
-                tons += (abertura.getImgCinza().getRGB(i-1, j+1) & 0xff);
-                tons += (abertura.getImgCinza().getRGB(i, j-1) & 0xff);
-                tons += (abertura.getImgCinza().getRGB(i, j) & 0xff);
-                tons += (abertura.getImgCinza().getRGB(i, j+1) & 0xff);
-                tons += (abertura.getImgCinza().getRGB(i+1, j-1) & 0xff);
-                tons += (abertura.getImgCinza().getRGB(i+1, j) & 0xff);
-                tons += (abertura.getImgCinza().getRGB(i+1, j+1) & 0xff);
-                */
-                
-                //trocando o valor do tom de float para int
-                int tom_int = (int)tom;
-                
-                //colocando na imagem de saída
-                imgSaida.setRGB(i, j, tom_int | (tom_int << 8) | (tom_int << 16));
-            }
-        }
-        return imgSaida;
-    }
-    
-    public static BufferedImage mascaraMediana(BufferedImage img)
-    {
-        if (img == null) //se nada estiver aberto ou já convertido para tons de cinza
-        {
-            return null;
-        }
-        
-        //motagem da imgaem de saída vazia
-        BufferedImage imgSaida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
-        
-        //percorrendo a imagem principal
-        for (int i = 1; i <= img.getWidth()-2; i++) 
-        {
-            for (int j = 1; j <= img.getHeight()-2; j++) 
-            {
-                int[] tons = new int[9]; //vetor de tons
-                
-                //pegando os tons da vizinhança 8 de um pixel
-                tons[0] = (img.getRGB(i-1, j-1) & 0xff);
-                tons[1] = (img.getRGB(i-1, j) & 0xff);
-                tons[2] = (img.getRGB(i-1, j+1) & 0xff);
-                tons[3] = (img.getRGB(i, j-1) & 0xff);
-                tons[4] = (img.getRGB(i, j) & 0xff);
-                tons[5] = (img.getRGB(i, j+1) & 0xff);
-                tons[6] = (img.getRGB(i+1, j-1) & 0xff);
-                tons[7] = (img.getRGB(i+1, j) & 0xff);
-                tons[8] = (img.getRGB(i+1, j+1) & 0xff);
-                
-                //organizando os tons de forma crescente
-                Arrays.sort(tons);
-                
-                //colocando na imagem de saída
-                imgSaida.setRGB(i, j, tons[4] | (tons[4] << 8) | (tons[4] << 16));
-            }
-        }
-        
-        return imgSaida;
-    }
     
     public static BufferedImage binarizacao_limiarização(BufferedImage img, int limiar)
     {
@@ -334,4 +245,5 @@ public class Manipulacoes
         
         return saida;
     }
+    
 }

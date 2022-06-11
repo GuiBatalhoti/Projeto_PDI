@@ -7,7 +7,7 @@ package UIs;
 
 import Manipulacao.AberturaImg;
 import Manipulacao.Histograma;
-import Manipulacao.Manipulacoes;
+import Manipulacao.Filtros;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
@@ -91,7 +91,7 @@ public class UI_Histograma extends javax.swing.JDialog {
         Histograma hist = new Histograma();
         
         //motagem do histograma
-        JFreeChart grafico = hist.criaGrafico(Manipulacoes.contagemTons(hist.getImg()));
+        JFreeChart grafico = hist.criaGrafico(Filtros.contagemTons(hist.getImg()));
         
         //cast do histograma para imagem
         BufferedImage histograma = grafico.createBufferedImage(this.inputHistograma.getWidth(), this.inputHistograma.getHeight());

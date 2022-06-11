@@ -6,7 +6,7 @@
 package UIs;
 
 import Manipulacao.AberturaImg;
-import Manipulacao.Manipulacoes;
+import Manipulacao.Filtros;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class UI_Canais extends javax.swing.JDialog {
         AberturaImg abertura = AberturaImg.getInstance();
         if (abertura.getImg() != null)
         {
-            ArrayList<BufferedImage> imagens = Manipulacoes.canais();
+            ArrayList<BufferedImage> imagens = Filtros.canais();
             this.canalVermelho.setIcon(new ImageIcon(imagens.get(0).getScaledInstance(this.canalVermelho.getWidth(), this.canalVermelho.getHeight(), Image.SCALE_DEFAULT)));
             this.canalVerde.setIcon(new ImageIcon(imagens.get(1).getScaledInstance(this.canalVerde.getWidth(), this.canalVerde.getHeight(), Image.SCALE_DEFAULT)));
             this.canalAzul.setIcon(new ImageIcon(imagens.get(2).getScaledInstance(this.canalAzul.getWidth(), this.canalAzul.getHeight(), Image.SCALE_DEFAULT)));
