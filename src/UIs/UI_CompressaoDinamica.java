@@ -9,17 +9,18 @@ package UIs;
  *
  * @author Guilherme
  */
-public class UI_ValorLimiarizacao extends javax.swing.JDialog {
+public class UI_CompressaoDinamica extends javax.swing.JDialog {
 
     /**
-     * Creates new form UI_ValorLimiarizacao
+     * Creates new form UI_CompressaoDinamica
      */
-    public UI_ValorLimiarizacao(java.awt.Frame parent, boolean modal) {
+    public UI_CompressaoDinamica(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
     
-    private String valor;
+    private String valorC;
+    private String valorGama;
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,14 +31,15 @@ public class UI_ValorLimiarizacao extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        inputValor = new javax.swing.JTextField();
-        labelValor = new javax.swing.JLabel();
+        inputValorC = new javax.swing.JTextField();
+        labelValorC = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
+        inputValorGama = new javax.swing.JTextField();
+        labelValorGama = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Entrada Valor");
 
-        labelValor.setText("Escreva um valor inteiro para a Limiarização da imagem:");
+        labelValorC.setText("Escreva um valor para a o C:");
 
         btnOK.setText("OK");
         btnOK.addActionListener(new java.awt.event.ActionListener() {
@@ -46,6 +48,8 @@ public class UI_ValorLimiarizacao extends javax.swing.JDialog {
             }
         });
 
+        labelValorGama.setText("Escreva um valor para a o gama:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -53,35 +57,48 @@ public class UI_ValorLimiarizacao extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelValor, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                    .addComponent(inputValor)
+                    .addComponent(labelValorC, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(inputValorC)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnOK)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(labelValorGama, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(inputValorGama))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelValor)
+                .addComponent(labelValorC)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inputValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputValorC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelValorGama)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputValorGama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnOK)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        this.valor = this.inputValor.getText();
+        this.valorC = this.inputValorC.getText();
+        this.valorGama = this.inputValorGama.getText();
         this.setVisible(false);
     }//GEN-LAST:event_btnOKActionPerformed
 
-    public String getValor() {
-        return valor;
+    public float getValorC()
+    {
+        return Float.valueOf(this.valorC);
+    }
+    
+    public float getValorGama()
+    {
+        return Float.valueOf(this.valorGama);
     }
     
     /**
@@ -101,20 +118,20 @@ public class UI_ValorLimiarizacao extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UI_ValorLimiarizacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_CompressaoDinamica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UI_ValorLimiarizacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_CompressaoDinamica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UI_ValorLimiarizacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_CompressaoDinamica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UI_ValorLimiarizacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_CompressaoDinamica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                UI_ValorLimiarizacao dialog = new UI_ValorLimiarizacao(new javax.swing.JFrame(), true);
+                UI_CompressaoDinamica dialog = new UI_CompressaoDinamica(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -128,7 +145,9 @@ public class UI_ValorLimiarizacao extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;
-    private javax.swing.JTextField inputValor;
-    private javax.swing.JLabel labelValor;
+    private javax.swing.JTextField inputValorC;
+    private javax.swing.JTextField inputValorGama;
+    private javax.swing.JLabel labelValorC;
+    private javax.swing.JLabel labelValorGama;
     // End of variables declaration//GEN-END:variables
 }

@@ -505,7 +505,14 @@ public class UI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBordasVActionPerformed
 
     private void btnCompressaoDinamicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompressaoDinamicaActionPerformed
-        // TODO add your handling code here:
+        UI_CompressaoDinamica ui = new UI_CompressaoDinamica(new javax.swing.JFrame(), true);
+        ui.setVisible(true);
+        
+        float c = ui.getValorC();
+        float gama = ui.getValorGama();
+        
+        this.imgSaida = Filtros.escalaCompressaoDinamica(this.imgEntrada, gama, c);
+        this.renderImgSaida();
     }//GEN-LAST:event_btnCompressaoDinamicaActionPerformed
     
     private void renderImgEntrada()

@@ -8,6 +8,7 @@ package Manipulacao;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -246,4 +247,62 @@ public class Filtros
         return saida;
     }
     
+    public static BufferedImage escalaCompressaoDinamica(BufferedImage img, float gama, float c)
+    {
+        BufferedImage saida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+        
+        for (int i = 0; i < img.getWidth(); i++)
+        {
+            for (int j = 0; j < img.getHeight(); j++)
+            {
+                int tom = img.getRGB(i, j) & 0xff;
+                int novoPixel = compressao(gama, c, tom);
+            
+                saida.setRGB(i, j, novoPixel | (novoPixel << 8) | (novoPixel << 16));
+            }
+        }
+        
+        return saida;
+    }
+    
+    private static int compressao(float gama, float c, int tom)
+    {        
+        double r = ((float)tom)/255f;
+        
+        double s = (c * Math.pow(r, gama));
+              
+        int saida = (int) (s*255);
+        
+        if (saida > 255)
+            saida = 255;
+        
+        return saida;
+    }
+    
+    /*
+    private static BufferedImage normalizaImg(BufferedImage img)
+    {
+        BufferedImage saida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        int[] tons = Filtros.contagemTons(img);
+        int max = Arrays.stream(tons).max().getAsInt();
+        int min = Arrays.stream(tons).min().getAsInt();
+        
+        int aux = max - min;
+        
+        for (int i = 0; i < img.getWidth(); i++)
+        {
+            for (int j = 0; j < img.getHeight(); j++)
+            {
+                int tom = img.getRGB(i, j) & 0xff;
+                
+                int norm = (int) (255 * (tom - min) / aux );
+                
+                saida.setRGB(i, j, norm | (norm << 8) | (norm << 16));
+            }
+        }
+        
+        return saida;
+    }
+    */
 }
