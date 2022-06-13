@@ -38,7 +38,17 @@ public class AberturaImg {
         }
         catch(Exception e){}
     }
-
+    
+    public void salvarImg(BufferedImage img)
+    {
+        try
+        {
+            File arquivo = new File("imagem.png");
+            ImageIO.write(img, "png", arquivo);
+        }
+        catch(Exception e){}
+    }
+    
     public BufferedImage getImg() {
         return img;
     }

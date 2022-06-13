@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -60,6 +61,7 @@ public class UI_Principal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         abrirImg = new javax.swing.JMenuItem();
+        btnSalvar = new javax.swing.JMenuItem();
         btnConversor = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnSepararCanais = new javax.swing.JMenuItem();
@@ -139,6 +141,14 @@ public class UI_Principal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(abrirImg);
+
+        btnSalvar.setText("Salvar (saida)");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnSalvar);
 
         btnConversor.setText("Conversor RGB/HSL");
         btnConversor.addActionListener(new java.awt.event.ActionListener() {
@@ -514,6 +524,12 @@ public class UI_Principal extends javax.swing.JFrame {
         this.imgSaida = Filtros.escalaCompressaoDinamica(this.imgEntrada, gama, c);
         this.renderImgSaida();
     }//GEN-LAST:event_btnCompressaoDinamicaActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        AberturaImg abertura = AberturaImg.getInstance();
+        abertura.salvarImg(this.imgSaida);
+        JOptionPane.showMessageDialog(this, "Imagem salva.");
+    }//GEN-LAST:event_btnSalvarActionPerformed
     
     private void renderImgEntrada()
     {
@@ -577,6 +593,7 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnMascaraMediana;
     private javax.swing.JMenuItem btnNegativa;
     private javax.swing.JMenuItem btnSaltPeper;
+    private javax.swing.JMenuItem btnSalvar;
     private javax.swing.JMenuItem btnSepararCanais;
     private javax.swing.JMenuItem btnTonsCinza;
     private javax.swing.JButton btnTransfere;
