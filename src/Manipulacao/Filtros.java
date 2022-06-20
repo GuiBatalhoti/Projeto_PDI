@@ -183,7 +183,7 @@ public class Filtros
     }
     
     
-    public static BufferedImage binarizacao_limiarização(BufferedImage img, int limiar)
+    public static BufferedImage binarizacao_limiarizacao(BufferedImage img, int limiar)
     {
         AberturaImg abertura = AberturaImg.getInstance();
         if (abertura.getImg() == null || abertura.getImgCinza() == null) //se nada estiver aberto ou já convertido para tons de cinza

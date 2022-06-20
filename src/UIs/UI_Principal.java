@@ -439,7 +439,7 @@ public class UI_Principal extends javax.swing.JFrame {
 
     private void btnBinarizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBinarizacaoActionPerformed
         //binariza a imagem e renderiza a saída no label de saída
-        this.imgSaida = Filtros.binarizacao_limiarização(this.imgEntrada, 127);
+        this.imgSaida = Filtros.binarizacao_limiarizacao(this.imgEntrada, 127);
         this.renderImgSaida();
     }//GEN-LAST:event_btnBinarizacaoActionPerformed
 
@@ -448,7 +448,7 @@ public class UI_Principal extends javax.swing.JFrame {
         uiLimiarizacao.setVisible(true);
         
         int valor = Integer.valueOf(uiLimiarizacao.getValor());
-        this.imgSaida = Filtros.binarizacao_limiarização(this.imgEntrada, valor);
+        this.imgSaida = Filtros.binarizacao_limiarizacao(this.imgEntrada, valor);
         this.renderImgSaida();
     }//GEN-LAST:event_btnLimiarActionPerformed
 
