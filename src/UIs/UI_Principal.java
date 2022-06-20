@@ -433,22 +433,17 @@ public class UI_Principal extends javax.swing.JFrame {
         //transforma a imgem em tons de cinza, salva na classe AberturaImg e renderiza no label de saída
         this.imgSaida = Filtros.tonsCinza(this.imgEntrada);
         AberturaImg abertura = AberturaImg.getInstance();
-        abertura.setImgCinza(imgSaida);
         this.renderImgSaida();
     }//GEN-LAST:event_btnTonsCinzaActionPerformed
 
     private void btnBinarizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBinarizacaoActionPerformed
         //binariza a imagem e renderiza a saída no label de saída
-        this.imgSaida = Filtros.binarizacao_limiarizacao(this.imgEntrada, 127);
+        this.imgSaida = Filtros.binarizacao(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnBinarizacaoActionPerformed
 
     private void btnLimiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimiarActionPerformed
-        UI_ValorLimiarizacao uiLimiarizacao = new UI_ValorLimiarizacao(new javax.swing.JFrame(), true);
-        uiLimiarizacao.setVisible(true);
-        
-        int valor = Integer.valueOf(uiLimiarizacao.getValor());
-        this.imgSaida = Filtros.binarizacao_limiarizacao(this.imgEntrada, valor);
+        this.imgSaida = Filtros.limiarizacao(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnLimiarActionPerformed
 

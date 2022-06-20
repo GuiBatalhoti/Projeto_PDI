@@ -8,7 +8,6 @@ package Manipulacao;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -183,27 +182,26 @@ public class Filtros
     }
     
     
-    public static BufferedImage binarizacao_limiarizacao(BufferedImage img, int limiar)
+    public static BufferedImage binarizacao(BufferedImage img)
     {
-        AberturaImg abertura = AberturaImg.getInstance();
-        if (abertura.getImg() == null || abertura.getImgCinza() == null) //se nada estiver aberto ou já convertido para tons de cinza
+        if (img == null) //se nada estiver aberto
         {
             return null;
         }
         
         //motagem da imgaem de saída vazia
-        BufferedImage imgSaida = new BufferedImage(abertura.getImgCinza().getWidth(), abertura.getImgCinza().getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage imgSaida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
         
         //percorrendo a imagem principal
-        for (int i = 0; i < abertura.getImgCinza().getWidth(); i++) 
+        for (int i = 0; i < img.getWidth(); i++) 
         {
-            for (int j = 0; j < abertura.getImgCinza().getHeight(); j++) 
+            for (int j = 0; j < img.getHeight(); j++) 
             {
                 //pegando o valor do pixel
-                int tom = abertura.getImgCinza().getRGB(i, j) & 0xff;
+                int tom = img.getRGB(i, j) & 0xff;
                 
                 //se o tom do pixel for menor q o limiar passado ele fica preto, se não branco
-                if (tom < limiar)
+                if (tom < 128)
                     tom = 0;
                 else 
                     tom = 255;
@@ -212,9 +210,37 @@ public class Filtros
                 imgSaida.setRGB(i, j, tom | (tom << 8) | (tom << 16));
             }
         }
+                
+        //retorno final
+        return imgSaida;
+    }
+    
+    public static BufferedImage limiarizacao(BufferedImage img)
+    {
+        if (img == null) //se nada estiver aberto
+        {
+            return null;
+        }
         
-        //salvando a imagem binarizada na na imagem de saida
-        abertura.setImgLimiar(imgSaida);
+        //motagem da imgaem de saída vazia
+        BufferedImage imgSaida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+        
+        //percorrendo a imagem principal
+        for (int i = 0; i < img.getWidth(); i++) 
+        {
+            for (int j = 0; j < img.getHeight(); j++) 
+            {
+                //pegando o valor do pixel
+                int tom = img.getRGB(i, j) & 0xff;
+                
+                //se o tom do pixel for menor q o limiar passado ele fica preto, se não branco
+                if (tom < 128)
+                    tom = 0;
+                
+                //colcoandoa na imagem de saida
+                imgSaida.setRGB(i, j, tom | (tom << 8) | (tom << 16));
+            }
+        }
         
         //retorno final
         return imgSaida;

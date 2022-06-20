@@ -17,8 +17,6 @@ public class AberturaImg {
     
     private static AberturaImg instance;
     private static BufferedImage img;
-    private static BufferedImage imgCinza;
-    private static BufferedImage imgLimiar;
     
     public static AberturaImg getInstance() {
         if (instance == null)
@@ -52,25 +50,4 @@ public class AberturaImg {
     public BufferedImage getImg() {
         return img;
     }
-
-    public void setImg(BufferedImage img) {
-        this.img = img;
-    }
-
-    public static BufferedImage getImgLimiar() {
-        return imgLimiar;
-    }
-
-    public BufferedImage getImgCinza() {
-        return imgCinza;
-    }
-
-    public void setImgCinza(BufferedImage imgCinza) {
-        this.imgCinza = imgCinza;
-    }
-
-    public void setImgLimiar(BufferedImage imgLimiar) {
-        this.imgLimiar = imgLimiar;
-    }
-    
 }
