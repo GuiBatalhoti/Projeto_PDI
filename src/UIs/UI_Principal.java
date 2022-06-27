@@ -354,6 +354,8 @@ public class UI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void abrirImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirImgActionPerformed
+        //Pega caminho relativo da imagem aberta e redneriza na entrada
+        
         JFileChooser fileChooser = new JFileChooser();
         int resposta = fileChooser.showOpenDialog(null);
         AberturaImg abertura = AberturaImg.getInstance();
@@ -365,6 +367,8 @@ public class UI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_abrirImgActionPerformed
 
     private void btnTransfereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransfereActionPerformed
+        //Transfere a imagem da saída para a entrada e renderiza a imagem
+        
         if (this.imgSaida == null)
             return;
         
