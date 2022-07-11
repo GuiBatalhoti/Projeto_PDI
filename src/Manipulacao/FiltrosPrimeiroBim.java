@@ -215,7 +215,7 @@ public class FiltrosPrimeiroBim
         return imgSaida;
     }
     
-    public static BufferedImage limiarizacao(BufferedImage img)
+    public static BufferedImage limiarizacao(BufferedImage img, int limiar)
     {
         if (img == null) //se nada estiver aberto
         {
@@ -234,7 +234,7 @@ public class FiltrosPrimeiroBim
                 int tom = img.getRGB(i, j) & 0xff;
                 
                 //se o tom do pixel for menor q o limiar passado ele fica preto, se não branco
-                if (tom < 128)
+                if (tom < limiar)
                     tom = 0;
                 
                 //colcoandoa na imagem de saida

@@ -480,7 +480,13 @@ public class UI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBinarizacaoActionPerformed
 
     private void btnLimiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimiarActionPerformed
-        this.imgSaida = FiltrosPrimeiroBim.limiarizacao(this.imgEntrada);
+        
+        UI_Limiarizacao ui = new UI_Limiarizacao(new javax.swing.JFrame(), true);
+        ui.setVisible(true);
+        
+        int valor = ui.getInput();
+        
+        this.imgSaida = FiltrosPrimeiroBim.limiarizacao(this.imgEntrada, valor);
         this.renderImgSaida();
     }//GEN-LAST:event_btnLimiarActionPerformed
 
