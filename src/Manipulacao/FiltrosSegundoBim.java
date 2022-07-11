@@ -80,4 +80,41 @@ public class FiltrosSegundoBim {
         //retorno
         return saida;
     }
+    
+    public static BufferedImage filtroPontoMedio(BufferedImage img)
+    {
+        //imagem de saída
+        BufferedImage saida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+        
+        //percorrendo a imagem
+        for (int i = 1; i < img.getWidth()-1; i++)
+        {
+            for (int j = 1; j < img.getHeight()-1; j++)
+            {
+                //região
+                int regiao[] = new int[9];
+                
+                //percorrendo a região
+                for (int k = -1; k < 2; k++)
+                {
+                    for (int l = -1; l < 2; l++)
+                    {
+                        regiao[(k+1)*3 + l+1] = img.getRGB(i+k, j+l) & 0xff;   
+                    }
+                }
+                
+                //menor e maior valor da região
+                int min = Arrays.stream(regiao).min().getAsInt();
+                int max = Arrays.stream(regiao).max().getAsInt();
+                
+                int media = (max + min) / 2;
+                
+                //colcando na saída
+                saida.setRGB(i, j, media | (media << 8) | (media << 16));
+            }
+        }
+        
+        //retorno
+        return saida;
+    }
 }

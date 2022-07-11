@@ -81,8 +81,9 @@ public class UI_Principal extends javax.swing.JFrame {
         btnLaplace = new javax.swing.JMenuItem();
         btnCompressaoDinamica = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        btnPontoMinimo = new javax.swing.JMenuItem();
+        filtroPontoMax = new javax.swing.JMenuItem();
+        btnPontoMedio = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Projeto PDI");
@@ -286,21 +287,29 @@ public class UI_Principal extends javax.swing.JFrame {
 
         jMenu3.setText("Operações 2º Bim");
 
-        jMenuItem1.setText("Filtro Min");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        btnPontoMinimo.setText("Filtro Ponto Mínimo");
+        btnPontoMinimo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                btnPontoMinimoActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        jMenu3.add(btnPontoMinimo);
 
-        jMenuItem2.setText("Filtro max");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        filtroPontoMax.setText("Filtro Ponto Máximo");
+        filtroPontoMax.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                filtroPontoMaxActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
+        jMenu3.add(filtroPontoMax);
+
+        btnPontoMedio.setText("Filtro Ponto Médio");
+        btnPontoMedio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPontoMedioActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnPontoMedio);
 
         jMenuBar1.add(jMenu3);
 
@@ -554,15 +563,20 @@ public class UI_Principal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Imagem salva.");
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void btnPontoMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPontoMinimoActionPerformed
         this.imgSaida = FiltrosSegundoBim.filtroMinimo(this.imgEntrada);
         this.renderImgSaida();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_btnPontoMinimoActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void filtroPontoMaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroPontoMaxActionPerformed
         this.imgSaida = FiltrosSegundoBim.filtroMaximo(this.imgEntrada);
         this.renderImgSaida();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_filtroPontoMaxActionPerformed
+
+    private void btnPontoMedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPontoMedioActionPerformed
+        this.imgSaida = FiltrosSegundoBim.filtroPontoMedio(this.imgEntrada);
+        this.renderImgSaida();
+    }//GEN-LAST:event_btnPontoMedioActionPerformed
     
     private void renderImgEntrada()
     {
@@ -625,18 +639,19 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnMascaraMedia;
     private javax.swing.JMenuItem btnMascaraMediana;
     private javax.swing.JMenuItem btnNegativa;
+    private javax.swing.JMenuItem btnPontoMedio;
+    private javax.swing.JMenuItem btnPontoMinimo;
     private javax.swing.JMenuItem btnSaltPeper;
     private javax.swing.JMenuItem btnSalvar;
     private javax.swing.JMenuItem btnSepararCanais;
     private javax.swing.JMenuItem btnTonsCinza;
     private javax.swing.JButton btnTransfere;
     private javax.swing.JMenuItem btnbordasH;
+    private javax.swing.JMenuItem filtroPontoMax;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel labelCoordX;
