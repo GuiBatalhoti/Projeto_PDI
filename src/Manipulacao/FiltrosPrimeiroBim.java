@@ -14,7 +14,7 @@ import java.util.Random;
  *
  * @author Guilherme
  */
-public class Filtros 
+public class FiltrosPrimeiroBim 
 {
 
     public static BufferedImage tonsCinza(BufferedImage img) 

@@ -7,8 +7,9 @@ package UIs;
 
 import Manipulacao.AberturaImg;
 import Manipulacao.Histograma;
-import Manipulacao.Filtros;
-import Manipulacao.Mascaras;
+import Manipulacao.FiltrosPrimeiroBim;
+import Manipulacao.FiltrosSegundoBim;
+import Manipulacao.MascarasPrimeiroBim;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
@@ -79,6 +80,9 @@ public class UI_Principal extends javax.swing.JFrame {
         btnBordasV = new javax.swing.JMenuItem();
         btnLaplace = new javax.swing.JMenuItem();
         btnCompressaoDinamica = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Projeto PDI");
@@ -160,7 +164,7 @@ public class UI_Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Operaçõesno Espaço");
+        jMenu2.setText("Operações 1º Bim");
 
         btnSepararCanais.setText("Separar Canais");
         btnSepararCanais.addActionListener(new java.awt.event.ActionListener() {
@@ -280,6 +284,26 @@ public class UI_Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setText("Operações 2º Bim");
+
+        jMenuItem1.setText("Filtro Min");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuItem2.setText("Filtro max");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -395,7 +419,7 @@ public class UI_Principal extends javax.swing.JFrame {
         
         if (this.uiHistograma.getEqualizar())
         {
-            this.imgSaida = Filtros.equalizacaoHistograma(this.imgEntrada);
+            this.imgSaida = FiltrosPrimeiroBim.equalizacaoHistograma(this.imgEntrada);
             aux.setImg(imgSaida);
             this.renderImgSaida();
             this.uiHistograma.setVisible(true);
@@ -405,7 +429,7 @@ public class UI_Principal extends javax.swing.JFrame {
     private void btnNegativaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNegativaActionPerformed
         //performa o algoritmo de negativar a imagem e renderiza no label de saída
         
-        this.imgSaida = Filtros.negativa(this.imgEntrada);
+        this.imgSaida = FiltrosPrimeiroBim.negativa(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnNegativaActionPerformed
 
@@ -423,31 +447,31 @@ public class UI_Principal extends javax.swing.JFrame {
             }
         }
         
-        this.imgSaida = Mascaras.convolucaoGenerica(this.imgEntrada, mascara);
+        this.imgSaida = MascarasPrimeiroBim.convolucaoGenerica(this.imgEntrada, mascara);
         this.renderImgSaida();
     }//GEN-LAST:event_btnMascaraMediaActionPerformed
 
     private void btnMascaraMedianaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMascaraMedianaActionPerformed
         //perfoma o algoritmo da máscara da madiana e renderiza na saída
-        this.imgSaida = Mascaras.mascaraMediana(this.imgEntrada);
+        this.imgSaida = MascarasPrimeiroBim.mascaraMediana(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnMascaraMedianaActionPerformed
 
     private void btnTonsCinzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTonsCinzaActionPerformed
         //transforma a imgem em tons de cinza, salva na classe AberturaImg e renderiza no label de saída
-        this.imgSaida = Filtros.tonsCinza(this.imgEntrada);
+        this.imgSaida = FiltrosPrimeiroBim.tonsCinza(this.imgEntrada);
         AberturaImg abertura = AberturaImg.getInstance();
         this.renderImgSaida();
     }//GEN-LAST:event_btnTonsCinzaActionPerformed
 
     private void btnBinarizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBinarizacaoActionPerformed
         //binariza a imagem e renderiza a saída no label de saída
-        this.imgSaida = Filtros.binarizacao(this.imgEntrada);
+        this.imgSaida = FiltrosPrimeiroBim.binarizacao(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnBinarizacaoActionPerformed
 
     private void btnLimiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimiarActionPerformed
-        this.imgSaida = Filtros.limiarizacao(this.imgEntrada);
+        this.imgSaida = FiltrosPrimeiroBim.limiarizacao(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnLimiarActionPerformed
 
@@ -489,27 +513,27 @@ public class UI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_labelEntradaMouseMoved
 
     private void btnSaltPeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaltPeperActionPerformed
-        this.imgSaida = Filtros.saltPeper(this.imgEntrada);
+        this.imgSaida = FiltrosPrimeiroBim.saltPeper(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnSaltPeperActionPerformed
 
     private void btnLaplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaplaceActionPerformed
-        this.imgSaida = Mascaras.mascaraLaplace(this.imgEntrada);
+        this.imgSaida = MascarasPrimeiroBim.mascaraLaplace(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnLaplaceActionPerformed
 
     private void btnBordasSobelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBordasSobelActionPerformed
-        this.imgSaida = Mascaras.bordasFiltroSobel(this.imgEntrada);
+        this.imgSaida = MascarasPrimeiroBim.bordasFiltroSobel(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnBordasSobelActionPerformed
 
     private void btnbordasHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbordasHActionPerformed
-        this.imgSaida = Mascaras.filtroSobelHorizontal(this.imgEntrada);
+        this.imgSaida = MascarasPrimeiroBim.filtroSobelHorizontal(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnbordasHActionPerformed
 
     private void btnBordasVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBordasVActionPerformed
-        this.imgSaida = Mascaras.filtroSobelVertical(this.imgEntrada);
+        this.imgSaida = MascarasPrimeiroBim.filtroSobelVertical(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnBordasVActionPerformed
 
@@ -520,7 +544,7 @@ public class UI_Principal extends javax.swing.JFrame {
         float c = ui.getValorC();
         float gama = ui.getValorGama();
         
-        this.imgSaida = Filtros.escalaCompressaoDinamica(this.imgEntrada, gama, c);
+        this.imgSaida = FiltrosPrimeiroBim.escalaCompressaoDinamica(this.imgEntrada, gama, c);
         this.renderImgSaida();
     }//GEN-LAST:event_btnCompressaoDinamicaActionPerformed
 
@@ -529,6 +553,16 @@ public class UI_Principal extends javax.swing.JFrame {
         abertura.salvarImg(this.imgSaida);
         JOptionPane.showMessageDialog(this, "Imagem salva.");
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        this.imgSaida = FiltrosSegundoBim.filtroMinimo(this.imgEntrada);
+        this.renderImgSaida();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        this.imgSaida = FiltrosSegundoBim.filtroMaximo(this.imgEntrada);
+        this.renderImgSaida();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     
     private void renderImgEntrada()
     {
@@ -599,7 +633,10 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnbordasH;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel labelCoordX;

@@ -12,7 +12,7 @@ import java.util.Arrays;
  *
  * @author Guilherme
  */
-public class Mascaras 
+public class MascarasPrimeiroBim 
 {
 
     public static BufferedImage convolucaoGenerica(BufferedImage img, float[][] mascara) 
