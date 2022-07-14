@@ -8,6 +8,7 @@ package Manipulacao;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -305,14 +306,25 @@ public class FiltrosPrimeiroBim
         return saida;
     }
     
-    /*
-    private static BufferedImage normalizaImg(BufferedImage img)
+    
+    public static BufferedImage normalizaImg(BufferedImage img)
     {
         BufferedImage saida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        int[] tons = Filtros.contagemTons(img);
-        int max = Arrays.stream(tons).max().getAsInt();
-        int min = Arrays.stream(tons).min().getAsInt();
+        int min = 255, max = 0;
+        
+        for (int i = 0; i < img.getWidth(); i++)
+        {
+            for (int j = 0; j < img.getHeight(); j++)
+            {
+                int tom = img.getRGB(i, j) & 0xff;
+                
+                if (tom > max)
+                    max = tom;
+                if (tom < min)
+                    min = tom;
+            }
+        }
         
         int aux = max - min;
         
@@ -330,5 +342,38 @@ public class FiltrosPrimeiroBim
         
         return saida;
     }
-    */
+    
+    public static int[][] normalizaImg(int img[][])
+    {
+        int saida[][] = new int[img.length][img[0].length];
+
+        int min = 255, max = 0;
+        
+        for (int i = 0; i < img.length; i++)
+        {
+            for (int j = 0; j < img[0].length; j++)
+            {
+                int tom = img[i][j];
+                
+                if (tom > max)
+                    max = tom;
+                if (tom < min)
+                    min = tom;
+            }
+        }
+        
+        for (int i = 0; i < img.length; i++)
+        {
+            for (int j = 0; j < img[0].length; j++)
+            {
+                int tom = img[i][j];
+                
+                int norm = (int) (255 * (tom - min) / (max-min) );
+                
+                saida[i][j] = norm;
+            }
+        }
+        
+        return saida;
+    }
 }

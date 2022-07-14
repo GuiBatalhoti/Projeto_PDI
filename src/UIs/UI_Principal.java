@@ -84,6 +84,9 @@ public class UI_Principal extends javax.swing.JFrame {
         btnPontoMinimo = new javax.swing.JMenuItem();
         filtroPontoMax = new javax.swing.JMenuItem();
         btnPontoMedio = new javax.swing.JMenuItem();
+        btnDCT = new javax.swing.JMenuItem();
+        btnIDCT = new javax.swing.JMenuItem();
+        btnColorizacao = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Projeto PDI");
@@ -310,6 +313,30 @@ public class UI_Principal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(btnPontoMedio);
+
+        btnDCT.setText("DCT");
+        btnDCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDCTActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnDCT);
+
+        btnIDCT.setText("IDCT");
+        btnIDCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIDCTActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnIDCT);
+
+        btnColorizacao.setText("Colorização");
+        btnColorizacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColorizacaoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnColorizacao);
 
         jMenuBar1.add(jMenu3);
 
@@ -583,6 +610,22 @@ public class UI_Principal extends javax.swing.JFrame {
         this.imgSaida = FiltrosSegundoBim.filtroPontoMedio(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnPontoMedioActionPerformed
+
+    private void btnDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDCTActionPerformed
+        
+        this.imgSaida = FiltrosSegundoBim.DCT(this.imgEntrada);
+        this.renderImgSaida();
+    }//GEN-LAST:event_btnDCTActionPerformed
+
+    private void btnIDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIDCTActionPerformed
+        this.imgSaida = FiltrosSegundoBim.IDCT();
+        this.renderImgSaida();
+    }//GEN-LAST:event_btnIDCTActionPerformed
+
+    private void btnColorizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorizacaoActionPerformed
+        this.imgSaida = FiltrosSegundoBim.colorizacao(this.imgEntrada);
+        this.renderImgSaida();
+    }//GEN-LAST:event_btnColorizacaoActionPerformed
     
     private void renderImgEntrada()
     {
@@ -637,9 +680,12 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnBinarizacao;
     private javax.swing.JMenuItem btnBordasSobel;
     private javax.swing.JMenuItem btnBordasV;
+    private javax.swing.JMenuItem btnColorizacao;
     private javax.swing.JMenuItem btnCompressaoDinamica;
     private javax.swing.JMenuItem btnConversor;
+    private javax.swing.JMenuItem btnDCT;
     private javax.swing.JMenuItem btnHistograma;
+    private javax.swing.JMenuItem btnIDCT;
     private javax.swing.JMenuItem btnLaplace;
     private javax.swing.JMenuItem btnLimiar;
     private javax.swing.JMenuItem btnMascaraMedia;

@@ -266,6 +266,8 @@ public class MascarasPrimeiroBim
             }
         }
         
+        saida = FiltrosPrimeiroBim.normalizaImg(saida);
+        
         return saida;
     }
 }
