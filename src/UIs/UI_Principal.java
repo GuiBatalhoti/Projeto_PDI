@@ -87,6 +87,7 @@ public class UI_Principal extends javax.swing.JFrame {
         btnDCT = new javax.swing.JMenuItem();
         btnIDCT = new javax.swing.JMenuItem();
         btnColorizacao = new javax.swing.JMenuItem();
+        btnEqualizacaoHSI = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Projeto PDI");
@@ -337,6 +338,14 @@ public class UI_Principal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(btnColorizacao);
+
+        btnEqualizacaoHSI.setText("Equalização por HSI");
+        btnEqualizacaoHSI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEqualizacaoHSIActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnEqualizacaoHSI);
 
         jMenuBar1.add(jMenu3);
 
@@ -626,6 +635,11 @@ public class UI_Principal extends javax.swing.JFrame {
         this.imgSaida = FiltrosSegundoBim.colorizacao(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnColorizacaoActionPerformed
+
+    private void btnEqualizacaoHSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEqualizacaoHSIActionPerformed
+        this.imgSaida = FiltrosSegundoBim.equelizacaoHSI(this.imgEntrada);
+        this.renderImgSaida();
+    }//GEN-LAST:event_btnEqualizacaoHSIActionPerformed
     
     private void renderImgEntrada()
     {
@@ -684,6 +698,7 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnCompressaoDinamica;
     private javax.swing.JMenuItem btnConversor;
     private javax.swing.JMenuItem btnDCT;
+    private javax.swing.JMenuItem btnEqualizacaoHSI;
     private javax.swing.JMenuItem btnHistograma;
     private javax.swing.JMenuItem btnIDCT;
     private javax.swing.JMenuItem btnLaplace;

@@ -14,6 +14,7 @@ import java.util.Arrays;
 public class FiltrosSegundoBim {
     
     private static double[][] matrizDCT;
+    private static final float PI = (float) 3.142857;
     
     public static BufferedImage filtroMinimo(BufferedImage img)
     {
@@ -158,7 +159,7 @@ public class FiltrosSegundoBim {
         int preSaida[][] = new int[img.getWidth()][img.getHeight()];
         BufferedImage saida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        double ci, cj, dct, sum;
+        double ci, cj, dct;
 
         for (int i = 0; i < img.getWidth(); i++) {
             for (int j = 0; j < img.getHeight(); j++) {
@@ -169,6 +170,7 @@ public class FiltrosSegundoBim {
                     ci = (double) (1 / Math.sqrt(img.getWidth()));
                 else
                     ci = (double) (Math.sqrt(2) / Math.sqrt(img.getWidth()));
+                
                 if (j == 0)
                     cj = (double) (1 / Math.sqrt(img.getHeight()));
                 else
@@ -176,12 +178,13 @@ public class FiltrosSegundoBim {
 
                 // sum will temporarily store the sum of
                 // cosine signals
-                sum = 0;
+                double sum = 0;
                 for (int k = 0; k < img.getWidth(); k++) {
                     for (int l = 0; l < img.getHeight(); l++) {
                         dct = (double) ((img.getRGB(k, l) & 0xff) *
-                                Math.cos((2 * k + 1) * i * Math.PI / (2 * img.getWidth())) *
-                                Math.cos((2 * l + 1) * j * Math.PI / (2 * img.getHeight())));
+                                Math.cos( ((2 * k + 1) * i * PI) / (2 * img.getWidth()) ) *
+                                Math.cos( ((2 * l + 1) * j * PI) / (2 * img.getHeight()) ) 
+                                );
                         sum += dct;
                     }
                 }
@@ -190,6 +193,8 @@ public class FiltrosSegundoBim {
                 preSaida[i][j] = ((int) (ci * cj * sum));
             }
         }
+        
+        System.out.println(Arrays.deepToString(matrizDCT));
         
         preSaida = FiltrosPrimeiroBim.normalizaImg(preSaida);
         
@@ -207,35 +212,35 @@ public class FiltrosSegundoBim {
         int preSaida[][] = new int[matrizDCT.length][matrizDCT[0].length];
         BufferedImage saida = new BufferedImage(matrizDCT.length, matrizDCT[0].length, BufferedImage.TYPE_INT_RGB);
 
-        double ci, cj, idct, sum;
+        double ci, cj, idct;
 
         for (int i = 0; i < matrizDCT.length; i++) {
-            for (int j = 0; j <  matrizDCT[0].length; j++) {
+            for (int j = 0; j <  matrizDCT[i].length; j++) {
 
                 // ci and cj depends on frequency as well as
                 // number of row and columns of specified matrix
                 if (i == 0)
-                    ci = (double) (1 / Math.sqrt( matrizDCT.length));
+                    ci = (double) (1 / Math.sqrt(matrizDCT.length));
                 else
                     ci = (double) (Math.sqrt(2) / Math.sqrt(matrizDCT.length));
                 if (j == 0)
-                    cj = (double) (1 / Math.sqrt(matrizDCT[0].length));
+                    cj = (double) (1 / Math.sqrt(matrizDCT[i].length));
                 else
-                    cj = (double) (Math.sqrt(2) / Math.sqrt(matrizDCT[0].length));
+                    cj = (double) (Math.sqrt(2) / Math.sqrt(matrizDCT[i].length));
 
                 // sum will temporarily store the sum of
                 // cosine signals
-                sum = 0;
+                double sum = 0;
                 for (int k = 0; k < matrizDCT.length; k++) {
-                    for (int l = 0; l < matrizDCT[0].length; l++) {
+                    for (int l = 0; l < matrizDCT[k].length; l++) {
                         idct = (double) (ci * cj * matrizDCT[k][l] *
-                                Math.cos((2 * k + 1) * i * Math.PI / (2 * matrizDCT.length)) *
-                                Math.cos((2 * l + 1) * j * Math.PI / (2 * matrizDCT[0].length)));
+                                Math.cos((2 * k + 1) * i * PI / (2 * matrizDCT.length)) *
+                                Math.cos((2 * l + 1) * j * PI / (2 * matrizDCT[k].length)));
                         sum += idct;
                     }
                 }
                 
-                int aux = (int) Math.ceil(sum);
+                int aux = (int) (sum);
 
                 preSaida[i][j] = aux;
             }
@@ -250,5 +255,71 @@ public class FiltrosSegundoBim {
         }
         
         return saida;
+    }
+    
+    public static BufferedImage equelizacaoHSI(BufferedImage img)
+    {
+        //contagem do número de pixels de cada 
+        int contagem[] = contagemIntensidade(img);
+
+        //valor aux constante para o cálculo de equalização
+        int aux = img.getWidth() * img.getHeight();
+
+        //imagem de saída equalizada
+        BufferedImage imgRealce = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+        
+        for (int i = 0; i < img.getWidth(); i++) 
+        {
+            for (int j = 0; j < img.getHeight(); j++) 
+            {
+                int freqAcumulada = 0; //frequencia acumulada
+
+                int rgb = img.getRGB(i, j); //pegando o valor RGB do pixel
+
+                //manipulação dos bit para pegar o valor de uma cor específica
+                int red = 0xff & (rgb >> 16);
+                int green = 0xff & (rgb >> 8);
+                int blue = 0xff & rgb;
+                
+                int[] hsl = Conversor.rgbToHSL(red, green, blue);
+                 
+                //contagem da frequencia acumulada
+                for (int k = 0; k <= hsl[2]; k++)
+                    freqAcumulada += contagem[k];
+
+                //cálculo do pixel equalizado
+                int valorEq = Math.max(0, Math.round(((240 * freqAcumulada) / aux)) - 1);
+                  
+                int[] cor = Conversor.hslToRGB(hsl[0], hsl[1], valorEq);
+                
+                //colocando o valor dentor da imagem de saída
+                imgRealce.setRGB(i, j, cor[2] | (cor[1] << 8) | (cor[0] << 16));
+            }
+        }
+        
+        return imgRealce;
+    }
+    
+    public static int[] contagemIntensidade(BufferedImage img)
+    {
+        int[] contagem = new int[240];
+        
+        for (int i = 0; i < img.getWidth(); i++) {
+            for (int j = 0; j < img.getHeight(); j++) {
+                
+                int rgb = img.getRGB(i, j); //pegando o valor RGB do pixel
+
+                //manipulação dos bit para pegar o valor de uma cor específica
+                int red = 0xff & (rgb >> 16);
+                int green = 0xff & (rgb >> 8);
+                int blue = 0xff & rgb;
+                
+                int[] hsl = Conversor.rgbToHSL(red, green, blue);
+                
+                contagem[hsl[2]]++;
+            }
+        }
+        
+        return contagem;
     }
 }

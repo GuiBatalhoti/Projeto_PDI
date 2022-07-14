@@ -152,7 +152,7 @@ public class FiltrosPrimeiroBim
 
                 //cálculo do pixel equalizado
                 int valorEq = Math.max(0, Math.round(((255 * freqAcumulada) / aux)) - 1);
-
+                
                 //colocando o valor dentor da imagem de saída
                 imgRealce.setRGB(i, j, valorEq | (valorEq << 8) | (valorEq << 16));
             }

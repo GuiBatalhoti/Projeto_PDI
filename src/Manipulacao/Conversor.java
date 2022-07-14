@@ -113,8 +113,6 @@ public class Conversor {
         rgb[1] = (int) ((g + m) *255);
         rgb[2] = (int) ((b + m) *255);
         
-        System.out.println(rgb[0] + " " + rgb[1] + " " + rgb[2]);
-        
         return rgb;
     }
 }
