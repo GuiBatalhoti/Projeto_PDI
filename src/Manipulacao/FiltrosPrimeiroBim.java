@@ -347,7 +347,7 @@ public class FiltrosPrimeiroBim
     {
         int saida[][] = new int[img.length][img[0].length];
 
-        int min = 255, max = 0;
+        int min = img[0][0], max = img[0][0];
         
         for (int i = 0; i < img.length; i++)
         {
@@ -364,11 +364,11 @@ public class FiltrosPrimeiroBim
         
         for (int i = 0; i < img.length; i++)
         {
-            for (int j = 0; j < img[0].length; j++)
+            for (int j = 0; j < img[i].length; j++)
             {
                 int tom = img[i][j];
                 
-                int norm = (int) (255 * (tom - min) / (max-min) );
+                int norm = (int) (255 * (tom - min) / (max - min) );
                 
                 saida[i][j] = norm;
             }

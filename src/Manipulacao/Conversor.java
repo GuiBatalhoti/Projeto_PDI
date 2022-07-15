@@ -44,7 +44,7 @@ public class Conversor {
            s = 0;
         
         s *= 240;
-        l *= 240;      
+        l *= 240;    
         
         int[] retorno = new int[3];
         
