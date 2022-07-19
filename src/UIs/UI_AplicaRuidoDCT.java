@@ -4,22 +4,39 @@
  */
 package UIs;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Guilherme
  */
-public class UI_Limiarizacao extends javax.swing.JDialog {
+public class UI_AplicaRuidoDCT extends javax.swing.JDialog {
 
     /**
-     * Creates new form UI_Limiarizacap
+     * Creates new form UI_AplicaRuidoDCT
      */
-    public UI_Limiarizacao(java.awt.Frame parent, boolean modal) {
+    public UI_AplicaRuidoDCT(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
     
-    private int valor;
+    BufferedImage img;
 
+    public BufferedImage getImg() {
+        return img;
+    }
+
+    public void setImg(BufferedImage Img) {
+        this.img = Img;
+    }
+    
+    public void renderSaida(BufferedImage img)
+    {
+        this.labelImg.setIcon(new ImageIcon(this.img));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,20 +46,18 @@ public class UI_Limiarizacao extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnOK = new javax.swing.JButton();
-        input = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        labelImg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        btnOK.setText("OK");
-        btnOK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOKActionPerformed(evt);
+        labelImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelImg.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        labelImg.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelImg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelImgMouseClicked(evt);
             }
         });
-
-        jLabel1.setText("Insira o valor da limiarização:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,38 +65,32 @@ public class UI_Limiarizacao extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnOK)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
-                        .addComponent(input)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(labelImg, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnOK)
+                .addComponent(labelImg, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        this.valor = Integer.valueOf(this.input.getText());
-        this.setVisible(false);
-    }//GEN-LAST:event_btnOKActionPerformed
-    
-    public int getInput()
-    {
-        return this.valor;
-    }
-    
+    private void labelImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImgMouseClicked
+        if(this.img == null)
+        {
+            int x = evt.getX();
+            int y = evt.getY();
+            if(x < this.img.getWidth() || y < this.img.getHeight())
+            {
+                this.img.setRGB(x, y, 255 | 255 << 8 | 255 << 16);
+            }
+        }
+    }//GEN-LAST:event_labelImgMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -99,21 +108,20 @@ public class UI_Limiarizacao extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UI_Limiarizacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_AplicaRuidoDCT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UI_Limiarizacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_AplicaRuidoDCT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UI_Limiarizacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_AplicaRuidoDCT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UI_Limiarizacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_AplicaRuidoDCT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                UI_Limiarizacao dialog = new UI_Limiarizacao(new javax.swing.JFrame(), true);
+                UI_AplicaRuidoDCT dialog = new UI_AplicaRuidoDCT(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -126,8 +134,6 @@ public class UI_Limiarizacao extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnOK;
-    private javax.swing.JTextField input;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel labelImg;
     // End of variables declaration//GEN-END:variables
 }

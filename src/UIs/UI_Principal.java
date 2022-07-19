@@ -84,8 +84,12 @@ public class UI_Principal extends javax.swing.JFrame {
         btnPontoMinimo = new javax.swing.JMenuItem();
         filtroPontoMax = new javax.swing.JMenuItem();
         btnPontoMedio = new javax.swing.JMenuItem();
+        menuDCT = new javax.swing.JMenu();
         btnDCT = new javax.swing.JMenuItem();
         btnIDCT = new javax.swing.JMenuItem();
+        btnPassaAlta = new javax.swing.JMenuItem();
+        btnPassaBaixa = new javax.swing.JMenuItem();
+        btnAplicaRuido = new javax.swing.JMenuItem();
         btnColorizacao = new javax.swing.JMenuItem();
         btnEqualizacaoHSI = new javax.swing.JMenuItem();
 
@@ -315,21 +319,49 @@ public class UI_Principal extends javax.swing.JFrame {
         });
         jMenu3.add(btnPontoMedio);
 
-        btnDCT.setText("DCT");
+        menuDCT.setText("DCT");
+
+        btnDCT.setText("Aplica DCT");
         btnDCT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDCTActionPerformed(evt);
             }
         });
-        jMenu3.add(btnDCT);
+        menuDCT.add(btnDCT);
 
-        btnIDCT.setText("IDCT");
+        btnIDCT.setText("Aplica IDCT");
         btnIDCT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIDCTActionPerformed(evt);
             }
         });
-        jMenu3.add(btnIDCT);
+        menuDCT.add(btnIDCT);
+
+        btnPassaAlta.setText("Passa Alta");
+        btnPassaAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPassaAltaActionPerformed(evt);
+            }
+        });
+        menuDCT.add(btnPassaAlta);
+
+        btnPassaBaixa.setText("Passa Baixa");
+        btnPassaBaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPassaBaixaActionPerformed(evt);
+            }
+        });
+        menuDCT.add(btnPassaBaixa);
+
+        btnAplicaRuido.setText("Aplicar Ruído");
+        btnAplicaRuido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAplicaRuidoActionPerformed(evt);
+            }
+        });
+        menuDCT.add(btnAplicaRuido);
+
+        jMenu3.add(menuDCT);
 
         btnColorizacao.setText("Colorização");
         btnColorizacao.addActionListener(new java.awt.event.ActionListener() {
@@ -505,7 +537,6 @@ public class UI_Principal extends javax.swing.JFrame {
     private void btnTonsCinzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTonsCinzaActionPerformed
         //transforma a imgem em tons de cinza, salva na classe AberturaImg e renderiza no label de saída
         this.imgSaida = FiltrosPrimeiroBim.tonsCinza(this.imgEntrada);
-        AberturaImg abertura = AberturaImg.getInstance();
         this.renderImgSaida();
     }//GEN-LAST:event_btnTonsCinzaActionPerformed
 
@@ -517,7 +548,7 @@ public class UI_Principal extends javax.swing.JFrame {
 
     private void btnLimiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimiarActionPerformed
         
-        UI_Limiarizacao ui = new UI_Limiarizacao(new javax.swing.JFrame(), true);
+        UI_InputValor ui = new UI_InputValor(new javax.swing.JFrame(), true);
         ui.setVisible(true);
         
         int valor = ui.getInput();
@@ -621,13 +652,12 @@ public class UI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPontoMedioActionPerformed
 
     private void btnDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDCTActionPerformed
-        
         this.imgSaida = FiltrosSegundoBim.DCT(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnDCTActionPerformed
 
     private void btnIDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIDCTActionPerformed
-        this.imgSaida = FiltrosSegundoBim.IDCT();
+        this.imgSaida = FiltrosSegundoBim.IDCT(FiltrosSegundoBim.getDCT());
         this.renderImgSaida();
     }//GEN-LAST:event_btnIDCTActionPerformed
 
@@ -640,6 +670,34 @@ public class UI_Principal extends javax.swing.JFrame {
         this.imgSaida = FiltrosSegundoBim.equalizacaoHSI(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnEqualizacaoHSIActionPerformed
+
+    private void btnPassaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPassaAltaActionPerformed
+        UI_InputValor ui = new UI_InputValor(new javax.swing.JFrame(), true);
+        ui.setVisible(true);
+        int raio = ui.getInput();
+        
+        FiltrosSegundoBim.DCT(this.imgEntrada);
+
+        double aux[][] = FiltrosSegundoBim.passaAltaDCT(FiltrosSegundoBim.getDCT(), raio);
+        this.imgSaida = FiltrosSegundoBim.IDCT(aux);
+        this.renderImgSaida();
+    }//GEN-LAST:event_btnPassaAltaActionPerformed
+
+    private void btnPassaBaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPassaBaixaActionPerformed
+        UI_InputValor ui = new UI_InputValor(new javax.swing.JFrame(), true);
+        ui.setVisible(true);
+        int raio = ui.getInput();
+        
+        FiltrosSegundoBim.DCT(this.imgEntrada);
+
+        double aux[][] = FiltrosSegundoBim.passaBaixaDCT(FiltrosSegundoBim.getDCT(), raio);
+        this.imgSaida = FiltrosSegundoBim.IDCT(aux);
+        this.renderImgSaida();
+    }//GEN-LAST:event_btnPassaBaixaActionPerformed
+
+    private void btnAplicaRuidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicaRuidoActionPerformed
+        
+    }//GEN-LAST:event_btnAplicaRuidoActionPerformed
     
     private void renderImgEntrada()
     {
@@ -691,6 +749,7 @@ public class UI_Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirImg;
+    private javax.swing.JMenuItem btnAplicaRuido;
     private javax.swing.JMenuItem btnBinarizacao;
     private javax.swing.JMenuItem btnBordasSobel;
     private javax.swing.JMenuItem btnBordasV;
@@ -706,6 +765,8 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnMascaraMedia;
     private javax.swing.JMenuItem btnMascaraMediana;
     private javax.swing.JMenuItem btnNegativa;
+    private javax.swing.JMenuItem btnPassaAlta;
+    private javax.swing.JMenuItem btnPassaBaixa;
     private javax.swing.JMenuItem btnPontoMedio;
     private javax.swing.JMenuItem btnPontoMinimo;
     private javax.swing.JMenuItem btnSaltPeper;
@@ -730,6 +791,7 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel labelSaida;
     private javax.swing.JLabel labelX;
     private javax.swing.JLabel labelY;
+    private javax.swing.JMenu menuDCT;
     private javax.swing.JMenu menuSobel;
     private javax.swing.JScrollPane painelEntrada;
     private javax.swing.JScrollPane painelSaida;

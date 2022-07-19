@@ -14,6 +14,14 @@ import java.util.Arrays;
 public class FiltrosSegundoBim {
     
     private static double[][] DCT;
+
+    public static double[][] getDCT() {
+        return DCT;
+    }
+
+    public static void setDCT(double[][] DCT) {
+        FiltrosSegundoBim.DCT = DCT;
+    }
     
     public static BufferedImage filtroMinimo(BufferedImage img)
     {
@@ -206,35 +214,35 @@ public class FiltrosSegundoBim {
         return saida;
     }
     
-    public static BufferedImage IDCT()
+    public static BufferedImage IDCT(double matriz[][])
     {
-        BufferedImage saida = new BufferedImage(DCT.length, DCT[0].length, BufferedImage.TYPE_INT_RGB);
+        BufferedImage saida = new BufferedImage(matriz.length, matriz[0].length, BufferedImage.TYPE_INT_RGB);
 
         double ci, cj, idct;
         
-        for (int x = 0; x < DCT.length; x++) {
-            for (int y = 0; y <  DCT[x].length; y++) {
+        for (int x = 0; x < matriz.length; x++) {
+            for (int y = 0; y < matriz[x].length; y++) {
                 double sum = 0;
                 
                 
-                for (int u = 0; u < DCT.length; u++) {
-                    for (int v = 0; v < DCT[u].length; v++) {
+                for (int u = 0; u < matriz.length; u++) {
+                    for (int v = 0; v < matriz[u].length; v++) {
                         
                         if (u == 0)
-                            ci = Math.sqrt(1.0f/DCT.length);
+                            ci = Math.sqrt(1.0f/matriz.length);
                         else
-                            ci = Math.sqrt(2.0f/DCT.length);
+                            ci = Math.sqrt(2.0f/matriz.length);
 
                         if (v == 0)
-                            cj = Math.sqrt(1.0f/DCT[u].length);
+                            cj = Math.sqrt(1.0f/matriz[u].length);
                         else
-                            cj = Math.sqrt(2.0f/DCT[u].length);
+                            cj = Math.sqrt(2.0f/matriz[u].length);
                         
-                        double tom = DCT[u][v];
+                        double tom = matriz[u][v];
                         
                         idct = (tom *
-                                Math.cos((2.0f * x + 1.0f) * u * Math.PI / (2.0f * DCT.length)) *
-                                Math.cos((2.0f * y + 1.0f) * v * Math.PI / (2.0f * DCT[u].length)));
+                                Math.cos((2.0f * x + 1.0f) * u * Math.PI / (2.0f * matriz.length)) *
+                                Math.cos((2.0f * y + 1.0f) * v * Math.PI / (2.0f * matriz[u].length)));
                         
                         sum += ci * cj * idct;
                     }
@@ -245,6 +253,41 @@ public class FiltrosSegundoBim {
             }
         }
         
+        return saida;
+    }
+    
+    public static double[][] passaAltaDCT(double matriz[][], int raio)
+    {
+        double saida[][] = new double[matriz.length][matriz[0].length];
+        
+        for (int i = 0; i < matriz.length; i++)
+        {
+            for (int j = 0; j < matriz[i].length; j++)
+            {
+                if (Math.round(Math.sqrt(i*i + j*j)) >= raio)
+                    saida[i][j] = matriz[i][j];
+                else
+                    saida[i][j] = 0.0;
+            }
+        }
+        
+        return saida;
+    }
+        
+    public static double[][] passaBaixaDCT(double matriz[][], int raio)
+    {
+        double saida[][] = new double[matriz.length][matriz[0].length];
+        
+        for (int i = 0; i < matriz.length; i++)
+        {
+            for (int j = 0; j < matriz[i].length; j++)
+            {
+                if (Math.round(Math.sqrt(i*i + j*j)) >= raio)
+                    saida[i][j] = 0.0;
+                else
+                    saida[i][j] = matriz[i][j];
+            }
+        }
         return saida;
     }
     

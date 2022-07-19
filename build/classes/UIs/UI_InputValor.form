@@ -63,7 +63,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Insira o valor da limiariza&#xe7;&#xe3;o:"/>
+        <Property name="text" type="java.lang.String" value="Insira o valor:"/>
       </Properties>
     </Component>
   </SubComponents>
