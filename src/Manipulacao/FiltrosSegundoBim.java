@@ -4,6 +4,7 @@
  */
 package Manipulacao;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
@@ -140,19 +141,23 @@ public class FiltrosSegundoBim {
                 
                 if (tom < 64)
                 {
-                    saida.setRGB(i, j, (tom*4));
+                    Color cor = new Color(0,0, tom*4);
+                    saida.setRGB(i, j, cor.getRGB());
                 }
-                else if(tom < 128)
+                else if(tom >= 64 && tom < 128)
                 {
-                    saida.setRGB(i, j, 255 | ((tom-64) * 4) << 8);
+                    Color cor = new Color(0, (tom-64) * 4, 255);
+                    saida.setRGB(i, j, cor.getRGB());
                 }
-                else if (tom < 192)
+                else if (tom >= 128 && tom < 192)
                 {
-                    saida.setRGB(i, j, 255 - (tom - 128)*4 | (255 << 8));
+                    Color cor = new Color(0, 255, 255 - (tom - 128)*4);
+                    saida.setRGB(i, j, cor.getRGB());
                 }
                 else 
                 {
-                    saida.setRGB(i, j, (255 << 8) | ((tom - 192)*4) << 16 );
+                    Color cor = new Color( (tom - 192)*4, 255, 0);
+                    saida.setRGB(i, j, cor.getRGB());
                 }
             }
         }
