@@ -15,13 +15,22 @@ import java.util.Arrays;
 public class FiltrosSegundoBim {
     
     private static double[][] DCT;
-
+    private static BufferedImage imgDCT;
+    
     public static double[][] getDCT() {
         return DCT;
     }
 
     public static void setDCT(double[][] DCT) {
         FiltrosSegundoBim.DCT = DCT;
+    }
+
+    public static BufferedImage getImgDCT() {
+        return imgDCT;
+    }
+
+    public static void setImgDCT(BufferedImage imgDCT) {
+        FiltrosSegundoBim.imgDCT = imgDCT;
     }
     
     public static BufferedImage filtroMinimo(BufferedImage img)
@@ -170,10 +179,10 @@ public class FiltrosSegundoBim {
         int w = img.getWidth();
         int h = img.getHeight();
         
+        imgDCT = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
         DCT = new double[w][h];
         int preSaida[][] = new int[w][h];
-        BufferedImage saida = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-
+        
         double ci, cj, dct1;
   
         for (int u = 0; u < w; u++) {
@@ -212,11 +221,11 @@ public class FiltrosSegundoBim {
         
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                saida.setRGB(i, j, preSaida[i][j] | (preSaida[i][j] << 8) | (preSaida[i][j] << 16));
+                imgDCT.setRGB(i, j, preSaida[i][j] | (preSaida[i][j] << 8) | (preSaida[i][j] << 16));
             }
         }
         
-        return saida;
+        return imgDCT;
     }
     
     public static BufferedImage IDCT(double matriz[][])
@@ -366,5 +375,54 @@ public class FiltrosSegundoBim {
         }
         
         return contagem;
+    }
+    
+    public static BufferedImage laplacianoGaussiana(BufferedImage img)
+    {
+        float[][] mascara = {
+                           {0, 0, -1, 0, 0},
+                           {0, -1, -2, -1, 0},
+                           {-1, -2, 16, -2, -1},
+                           {0, -1, -2, -1, 0},
+                           {0, 0, -1, 0, 0}
+                          };
+        
+        BufferedImage saida = convolucaoGenerica5x5(img, mascara);
+        
+        return saida;
+    }
+    
+    public static BufferedImage convolucaoGenerica5x5(BufferedImage img, float[][] mascara) 
+    {
+        if (img == null) {
+            return null;
+        }
+        //montando a imagem de saída
+        BufferedImage imgSaida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+        //percorrendo a imagemd e saída
+        for (int i = 2; i < imgSaida.getWidth() - 2; i++) 
+        {
+            for (int j = 2; j < imgSaida.getHeight() - 2; j++) 
+            {
+                //armazena o tom do pixel
+                float tom = 0;
+                //percorre a máscara e faz o cálculo com a máscara
+                for (int k = -2; k < mascara.length - 2; k++) 
+                {
+                    for (int l = -2; l < mascara[k+2].length - 2; l++) 
+                    {
+                        tom += (img.getRGB(i + k, j + l) & 255) * mascara[k + 2][l + 2];
+                    }
+                }
+                
+                //trocando o valor do tom de float para int
+                int tom_int = (int) (tom/16);
+                //colocando na imagem de saída
+                imgSaida.setRGB(i, j, tom_int | (tom_int << 8) | (tom_int << 16));
+            }
+        }
+        
+        // imgSaida = FiltrosPrimeiroBim.normalizaImg(img);
+        return imgSaida;
     }
 }

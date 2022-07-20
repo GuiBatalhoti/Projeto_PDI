@@ -32,7 +32,7 @@ public class MascarasPrimeiroBim
                 //percorre a máscara e faz o cálculo com a máscara
                 for (int k = -1; k < mascara.length - 1; k++) 
                 {
-                    for (int l = -1; l < mascara[0].length - 1; l++) 
+                    for (int l = -1; l < mascara[k+1].length - 1; l++) 
                     {
                         tom += (img.getRGB(i + k, j + l) & 255) * mascara[k + 1][l + 1];
                     }

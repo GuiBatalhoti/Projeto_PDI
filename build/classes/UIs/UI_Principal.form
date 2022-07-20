@@ -53,6 +53,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnTonsCinza">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+F1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Tons de Cinza"/>
               </Properties>
               <Events>
@@ -254,6 +257,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEqualizacaoHSIActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="btnLaplacianoGaussiana">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Laplaciano da Gaussiana"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLaplacianoGaussianaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

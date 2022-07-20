@@ -92,6 +92,7 @@ public class UI_Principal extends javax.swing.JFrame {
         btnAplicaRuido = new javax.swing.JMenuItem();
         btnColorizacao = new javax.swing.JMenuItem();
         btnEqualizacaoHSI = new javax.swing.JMenuItem();
+        btnLaplacianoGaussiana = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Projeto PDI");
@@ -183,6 +184,7 @@ public class UI_Principal extends javax.swing.JFrame {
         });
         jMenu2.add(btnSepararCanais);
 
+        btnTonsCinza.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         btnTonsCinza.setText("Tons de Cinza");
         btnTonsCinza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,6 +380,14 @@ public class UI_Principal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(btnEqualizacaoHSI);
+
+        btnLaplacianoGaussiana.setText("Laplaciano da Gaussiana");
+        btnLaplacianoGaussiana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLaplacianoGaussianaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnLaplacianoGaussiana);
 
         jMenuBar1.add(jMenu3);
 
@@ -696,8 +706,19 @@ public class UI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPassaBaixaActionPerformed
 
     private void btnAplicaRuidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicaRuidoActionPerformed
+        UI_AplicaRuidoDCT ui = new UI_AplicaRuidoDCT(new javax.swing.JFrame(), true);
+        ui.setImg(this.imgSaida);
+        ui.setVisible(true);
         
+        FiltrosSegundoBim.setImgDCT(ui.getImg());
+        this.imgSaida = ui.getImg();       
+        this.renderImgSaida();
     }//GEN-LAST:event_btnAplicaRuidoActionPerformed
+
+    private void btnLaplacianoGaussianaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaplacianoGaussianaActionPerformed
+        this.imgSaida = FiltrosSegundoBim.laplacianoGaussiana(this.imgEntrada);
+        this.renderImgSaida();
+    }//GEN-LAST:event_btnLaplacianoGaussianaActionPerformed
     
     private void renderImgEntrada()
     {
@@ -761,6 +782,7 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnHistograma;
     private javax.swing.JMenuItem btnIDCT;
     private javax.swing.JMenuItem btnLaplace;
+    private javax.swing.JMenuItem btnLaplacianoGaussiana;
     private javax.swing.JMenuItem btnLimiar;
     private javax.swing.JMenuItem btnMascaraMedia;
     private javax.swing.JMenuItem btnMascaraMediana;

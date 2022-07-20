@@ -4,6 +4,7 @@
  */
 package UIs;
 
+import Manipulacao.FiltrosSegundoBim;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
@@ -22,6 +23,7 @@ public class UI_AplicaRuidoDCT extends javax.swing.JDialog {
         initComponents();
     }
     
+    private double max;
     BufferedImage img;
 
     public BufferedImage getImg() {
@@ -47,8 +49,14 @@ public class UI_AplicaRuidoDCT extends javax.swing.JDialog {
     private void initComponents() {
 
         labelImg = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         labelImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelImg.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -59,13 +67,25 @@ public class UI_AplicaRuidoDCT extends javax.swing.JDialog {
             }
         });
 
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelImg, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelImg, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(187, 187, 187)
+                        .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -73,6 +93,8 @@ public class UI_AplicaRuidoDCT extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelImg, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -80,16 +102,44 @@ public class UI_AplicaRuidoDCT extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void labelImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImgMouseClicked
-        if(this.img == null)
+        
+        double dct[][] = FiltrosSegundoBim.getDCT();
+        if(this.img != null)
         {
             int x = evt.getX();
             int y = evt.getY();
             if(x < this.img.getWidth() || y < this.img.getHeight())
             {
-                this.img.setRGB(x, y, 255 | 255 << 8 | 255 << 16);
+                this.img.setRGB(x, y, Color.WHITE.getRGB());
+                
+                dct[x][y] = this.max/20;
             }
         }
+        
+        FiltrosSegundoBim.setDCT(dct);
+        this.renderSaida(this.img);
     }//GEN-LAST:event_labelImgMouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        double dct[][] = FiltrosSegundoBim.getDCT();
+        this.max = 0;
+        for (int i = 0; i < dct.length; i++)
+        {
+            for (int j = 0; j < dct[i].length; j++)
+            {
+                double tom = dct[i][j];
+                
+                if (tom > this.max)
+                    this.max = tom;
+            }
+        }
+        
+        this.renderSaida(this.img);
+    }//GEN-LAST:event_formWindowActivated
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,6 +184,7 @@ public class UI_AplicaRuidoDCT extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel labelImg;
     // End of variables declaration//GEN-END:variables
 }
