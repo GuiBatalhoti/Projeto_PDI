@@ -262,8 +262,11 @@ public class FiltrosSegundoBim {
                     }
                 }
                                 
-                int aux = (int) sum;
-                saida.setRGB(x, y, aux  | aux << 8 | aux << 16);
+                int aux = (int) Math.abs(Math.round(sum));
+                if (aux > 255)
+                    aux = 255;
+                Color cor = new Color(aux, aux, aux);
+                saida.setRGB(x, y, cor.getRGB());
             }
         }
         
@@ -278,10 +281,10 @@ public class FiltrosSegundoBim {
         {
             for (int j = 0; j < matriz[i].length; j++)
             {
-                if (Math.round(Math.sqrt(i*i + j*j)) >= raio)
-                    saida[i][j] = matriz[i][j];
-                else
+                if (Math.round(Math.sqrt(i*i + j*j)) <= raio)
                     saida[i][j] = 0.0;
+                else
+                    saida[i][j] = matriz[i][j];
             }
         }
         
@@ -296,10 +299,11 @@ public class FiltrosSegundoBim {
         {
             for (int j = 0; j < matriz[i].length; j++)
             {
-                if (Math.round(Math.sqrt(i*i + j*j)) >= raio)
-                    saida[i][j] = 0.0;
-                else
+                if (Math.round(Math.sqrt(i*i + j*j)) <= raio)
                     saida[i][j] = matriz[i][j];
+                else
+                    saida[i][j] = 0.0;
+
             }
         }
         return saida;
@@ -386,43 +390,34 @@ public class FiltrosSegundoBim {
                            {0, -1, -2, -1, 0},
                            {0, 0, -1, 0, 0}
                           };
-        
-        BufferedImage saida = convolucaoGenerica5x5(img, mascara);
-        
-        return saida;
-    }
-    
-    public static BufferedImage convolucaoGenerica5x5(BufferedImage img, float[][] mascara) 
-    {
-        if (img == null) {
-            return null;
-        }
-        //montando a imagem de saída
+                
+
         BufferedImage imgSaida = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
-        //percorrendo a imagemd e saída
+
         for (int i = 2; i < imgSaida.getWidth() - 2; i++) 
         {
             for (int j = 2; j < imgSaida.getHeight() - 2; j++) 
             {
-                //armazena o tom do pixel
-                float tom = 0;
-                //percorre a máscara e faz o cálculo com a máscara
+
+                int soma = 0;
+
                 for (int k = -2; k < mascara.length - 2; k++) 
                 {
                     for (int l = -2; l < mascara[k+2].length - 2; l++) 
                     {
-                        tom += (img.getRGB(i + k, j + l) & 255) * mascara[k + 2][l + 2];
+                        soma += (int) (img.getRGB(i + k, j + l) & 255) * mascara[k + 2][l + 2];
                     }
                 }
                 
-                //trocando o valor do tom de float para int
-                int tom_int = (int) (tom/16);
-                //colocando na imagem de saída
-                imgSaida.setRGB(i, j, tom_int | (tom_int << 8) | (tom_int << 16));
+
+                soma = Math.abs(soma/16);
+
+                imgSaida.setRGB(i, j, soma | (soma << 8) | (soma << 16));
             }
         }
         
-        // imgSaida = FiltrosPrimeiroBim.normalizaImg(img);
+        imgSaida = FiltrosPrimeiroBim.normalizaImg(imgSaida);
+
         return imgSaida;
     }
 }

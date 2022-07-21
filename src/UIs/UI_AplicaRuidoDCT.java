@@ -112,7 +112,7 @@ public class UI_AplicaRuidoDCT extends javax.swing.JDialog {
             {
                 this.img.setRGB(x, y, Color.WHITE.getRGB());
                 
-                dct[x][y] = this.max/20;
+                dct[x][y] = this.max/18;
             }
         }
         
