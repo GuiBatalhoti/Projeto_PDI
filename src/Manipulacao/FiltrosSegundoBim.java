@@ -374,7 +374,7 @@ public class FiltrosSegundoBim {
                 if (hsl[2] == 240)
                     contagem[239]++;
                 else  
-                    contagem[hsl[2]-1]++;
+                    contagem[hsl[2]]++;
             }
         }
         
