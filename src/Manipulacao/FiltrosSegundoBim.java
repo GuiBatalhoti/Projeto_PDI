@@ -420,4 +420,48 @@ public class FiltrosSegundoBim {
 
         return imgSaida;
     }
+    
+    public static int otsuThreshold(BufferedImage img)
+    {
+        int maxTom = 255;
+        int mediaGlobal = 0;
+        float maxNi = 0;
+        int candidato = 0;
+        int tamanhoImg = img.getHeight() * img.getWidth();
+        int[] freqTom = FiltrosPrimeiroBim.contagemTons(img);
+        Arrays.fill(freqTom, 0);
+        
+        for (int i = 0; i < maxTom; i++)
+        {
+            freqTom[i] = freqTom[i] / tamanhoImg;
+            mediaGlobal += freqTom[i] * i;
+        }
+        
+        for (int i = 0; i < maxTom; i++)
+        {
+            int otsuMedia = 0;
+            int otsuRazao = 0;
+            for (int j = 0; i < i; j++)
+            {
+                otsuMedia = freqTom[j];
+                otsuRazao = freqTom[j] * j;
+            }
+            
+            float media01 = otsuMedia / otsuRazao;
+            
+            float otsuRazaoComplementar = 1 - otsuRazao;
+            
+            float media02 = (mediaGlobal - otsuMedia) / otsuRazaoComplementar;
+            
+            float desvioPadrao = (float) (otsuRazao * otsuRazaoComplementar * Math.pow((media01 - media02), 2));
+            
+            if (desvioPadrao > maxNi)
+            {
+               maxNi = desvioPadrao;
+               candidato = i;
+            }
+        }
+        
+       
+    }
 }

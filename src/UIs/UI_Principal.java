@@ -355,7 +355,7 @@ public class UI_Principal extends javax.swing.JFrame {
         });
         menuDCT.add(btnPassaBaixa);
 
-        btnAplicaRuido.setText("Aplicar Ruído");
+        btnAplicaRuido.setText("Aplicar Ruído (Imagem Saída)");
         btnAplicaRuido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAplicaRuidoActionPerformed(evt);

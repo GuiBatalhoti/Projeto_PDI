@@ -235,7 +235,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="btnAplicaRuido">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Aplicar Ru&#xed;do"/>
+                    <Property name="text" type="java.lang.String" value="Aplicar Ru&#xed;do (Imagem Sa&#xed;da)"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAplicaRuidoActionPerformed"/>
