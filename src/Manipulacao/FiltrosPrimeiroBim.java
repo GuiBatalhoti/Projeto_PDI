@@ -165,9 +165,8 @@ public class FiltrosPrimeiroBim
     {
         //vetor de contagem de valores
         int contagem[] = new int[256];
-        for (int i = 0; i < 256; i++) {
-            contagem[i] = 0; //preenchimento do vetor de contagem
-        }
+        Arrays.fill(contagem, 0);
+        
         //loop duplo para percorrer a imagem e contar os valores
         for (int i = 0; i < img.getWidth(); i++) 
         {
@@ -183,7 +182,7 @@ public class FiltrosPrimeiroBim
     }
     
     
-    public static BufferedImage binarizacao(BufferedImage img)
+    public static BufferedImage binarizacao(BufferedImage img, int valor)
     {
         if (img == null) //se nada estiver aberto
         {
@@ -202,7 +201,7 @@ public class FiltrosPrimeiroBim
                 int tom = img.getRGB(i, j) & 0xff;
                 
                 //se o tom do pixel for menor q o limiar passado ele fica preto, se não branco
-                if (tom < 128)
+                if (tom < valor)
                     tom = 0;
                 else 
                     tom = 255;

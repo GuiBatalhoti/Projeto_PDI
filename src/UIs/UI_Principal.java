@@ -93,6 +93,7 @@ public class UI_Principal extends javax.swing.JFrame {
         btnColorizacao = new javax.swing.JMenuItem();
         btnEqualizacaoHSI = new javax.swing.JMenuItem();
         btnLaplacianoGaussiana = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Projeto PDI");
@@ -389,6 +390,14 @@ public class UI_Principal extends javax.swing.JFrame {
         });
         jMenu3.add(btnLaplacianoGaussiana);
 
+        jMenuItem1.setText("Valor de Otsu");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -552,7 +561,12 @@ public class UI_Principal extends javax.swing.JFrame {
 
     private void btnBinarizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBinarizacaoActionPerformed
         //binariza a imagem e renderiza a saída no label de saída
-        this.imgSaida = FiltrosPrimeiroBim.binarizacao(this.imgEntrada);
+        UI_InputValor ui = new UI_InputValor(new javax.swing.JFrame(), true);
+        ui.setVisible(true);
+        
+        int valor = ui.getInput();
+        
+        this.imgSaida = FiltrosPrimeiroBim.binarizacao(this.imgEntrada, valor);
         this.renderImgSaida();
     }//GEN-LAST:event_btnBinarizacaoActionPerformed
 
@@ -719,6 +733,12 @@ public class UI_Principal extends javax.swing.JFrame {
         this.imgSaida = FiltrosSegundoBim.laplacianoGaussiana(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnLaplacianoGaussianaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int valorOtsu = FiltrosSegundoBim.otsuThreshold(this.imgEntrada);
+        
+        JOptionPane.showMessageDialog(this, "O valor da limiarização deve ser: " + valorOtsu +".");
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     
     private void renderImgEntrada()
     {
@@ -802,6 +822,7 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel labelCoordX;

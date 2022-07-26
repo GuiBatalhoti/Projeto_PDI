@@ -423,45 +423,49 @@ public class FiltrosSegundoBim {
     
     public static int otsuThreshold(BufferedImage img)
     {
-        int maxTom = 255;
-        int mediaGlobal = 0;
-        float maxNi = 0;
-        int candidato = 0;
-        int tamanhoImg = img.getHeight() * img.getWidth();
-        int[] freqTom = FiltrosPrimeiroBim.contagemTons(img);
-        Arrays.fill(freqTom, 0);
-        
-        for (int i = 0; i < maxTom; i++)
+        int[] contagem = FiltrosPrimeiroBim.contagemTons(img);
+        float intensidade = 0;
+        for (int i = 0; i < contagem.length; i++)
         {
-            freqTom[i] = freqTom[i] / tamanhoImg;
-            mediaGlobal += freqTom[i] * i;
+            intensidade += i * contagem[i];
         }
+        float tamanho = img.getWidth() * img.getHeight();
+        float candidato = 0;
         
-        for (int i = 0; i < maxTom; i++)
+        float varianca = 0;
+        float melhorVarianca = -256;
+        
+        float mediaB = 0;
+        float pesoB = 0;
+        
+        float mediaF = intensidade / tamanho;
+        float pesoF = tamanho;
+        
+        double difMedia;
+        
+        int i = 0;
+        while (i < 256)
         {
-            int otsuMedia = 0;
-            int otsuRazao = 0;
-            for (int j = 0; i < i; j++)
-            {
-                otsuMedia = freqTom[j];
-                otsuRazao = freqTom[j] * j;
+            difMedia = mediaF - mediaB;
+            varianca = (float) (pesoB * pesoF * difMedia * difMedia);
+            
+            if (varianca > melhorVarianca) {
+                melhorVarianca = varianca;
+                candidato = i;
             }
             
-            float media01 = otsuMedia / otsuRazao;
-            
-            float otsuRazaoComplementar = 1 - otsuRazao;
-            
-            float media02 = (mediaGlobal - otsuMedia) / otsuRazaoComplementar;
-            
-            float desvioPadrao = (float) (otsuRazao * otsuRazaoComplementar * Math.pow((media01 - media02), 2));
-            
-            if (desvioPadrao > maxNi)
+            while(i < 256 && contagem[i] == 0)
             {
-               maxNi = desvioPadrao;
-               candidato = i;
+                i++;
             }
+            
+            mediaB = (mediaB * pesoB + contagem[i] * i) / (pesoB + contagem[i]);
+            mediaF = (mediaF * pesoF - contagem[i] * i) / (pesoF - contagem[i]);
+            pesoB += contagem[i];
+            pesoF -= contagem[i];
+            i++;
         }
-        
-       
+    
+        return (int) candidato;
     }
 }
