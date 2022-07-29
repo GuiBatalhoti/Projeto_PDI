@@ -423,49 +423,56 @@ public class FiltrosSegundoBim {
     
     public static int otsuThreshold(BufferedImage img)
     {
-        int[] contagem = FiltrosPrimeiroBim.contagemTons(img);
-        float intensidade = 0;
-        for (int i = 0; i < contagem.length; i++)
+        float[] contagem = new float[256];
+        Arrays.fill(contagem, 0);
+        float tamanhoImg = img.getWidth() * img.getHeight();
+        int candidato = 0;
+        
+        for (int i = 0; i < img.getWidth(); i++) 
         {
-            intensidade += i * contagem[i];
+            for (int j = 0; j < img.getHeight(); j++) 
+            {
+                int tom = img.getRGB(i, j) & 255;
+                contagem[tom]++;
+            }
         }
-        float tamanho = img.getWidth() * img.getHeight();
-        float candidato = 0;
         
-        float varianca = 0;
-        float melhorVarianca = -256;
-        
-        float mediaB = 0;
-        float pesoB = 0;
-        
-        float mediaF = intensidade / tamanho;
-        float pesoF = tamanho;
-        
-        double difMedia;
-        
-        int i = 0;
-        while (i < 256)
+        float mediaGlobal = 0;
+        for (int i = 0; i < 256; i++)
         {
-            difMedia = mediaF - mediaB;
-            varianca = (float) (pesoB * pesoF * difMedia * difMedia);
-            
+            mediaGlobal += contagem[i] * i;
+        }
+                
+        double varianca;
+        double melhorVarianca = Double.NEGATIVE_INFINITY;
+
+        double mediaFundo = 0;
+        double pesoFundo = 0;
+
+        double mediaFrente = (double) mediaGlobal / (double) tamanhoImg;
+        double pesoFrente = tamanhoImg;
+        double diferencacMedias;
+
+        int t = 0;
+        while (t < 255) {
+            diferencacMedias = mediaFrente - mediaFundo;
+            varianca = pesoFundo * pesoFrente * diferencacMedias * diferencacMedias;
+
             if (varianca > melhorVarianca) {
                 melhorVarianca = varianca;
-                candidato = i;
+                candidato = t;
             }
-            
-            while(i < 256 && contagem[i] == 0)
-            {
-                i++;
-            }
-            
-            mediaB = (mediaB * pesoB + contagem[i] * i) / (pesoB + contagem[i]);
-            mediaF = (mediaF * pesoF - contagem[i] * i) / (pesoF - contagem[i]);
-            pesoB += contagem[i];
-            pesoF -= contagem[i];
-            i++;
+
+            while (t < 255 && contagem[t] == 0)
+                t++;
+
+            mediaFundo = (mediaFundo * pesoFundo + contagem[t] * t) / (pesoFundo + contagem[t]);
+            mediaFrente = (mediaFrente * pesoFrente - contagem[t] * t) / (pesoFrente - contagem[t]);
+            pesoFundo += contagem[t];
+            pesoFrente -= contagem[t];
+            t++;
         }
-    
-        return (int) candidato;
-    }
+        
+        return candidato;
+   }
 }
