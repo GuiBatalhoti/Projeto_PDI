@@ -475,4 +475,60 @@ public class FiltrosSegundoBim {
         
         return candidato;
    }
+    
+    public static BufferedImage dilatacao(BufferedImage img){
+        
+        BufferedImage saida = new BufferedImage(img.getWidth(), img.getHeight(),BufferedImage.TYPE_INT_RGB);
+        int  i, j, m, n;
+        int mascara[][] = {{0,1,0},{1,1,1},{0,1,0}};
+        Color cor, preto = new Color(0,0,0);
+        
+        for(i=0; i<saida.getWidth()-1; i++)
+            for(j=0; j<saida.getHeight()-1; j++)
+                saida.setRGB(i, j, 0);
+        
+        
+        for(i=1; i<img.getWidth()-1; i++)
+            for(j=1; j<img.getHeight()-1; j++){
+                cor = new Color(img.getRGB(i, j));
+                if(!cor.equals(preto))
+                    for(m=-1; m<=1; m++)
+                        for(n=-1; n<=1; n++)
+                            if(mascara[m+1][n+1] == 1)
+                                saida.setRGB(i+m, j+n, cor.getRGB());
+            }
+        
+        return saida;
+    }
+    
+    public static BufferedImage erosao(BufferedImage img){
+        
+        BufferedImage saida = new BufferedImage(img.getWidth(), img.getHeight(),BufferedImage.TYPE_INT_RGB);
+        int i, j, m, n;
+        int mascara[][] = {{0,1,0},{1,1,1},{0,1,0}};
+        Boolean remove;
+        Color cor, preto = new Color(0,0,0);
+        
+        for(i=0; i<saida.getWidth(); i++)
+            for(j=0; j<saida.getHeight(); j++)
+                saida.setRGB(i, j, 0);
+        
+        for(i=1; i<img.getWidth()-1; i++)
+            for(j=1; j<img.getHeight(); j++){
+                cor = new Color(img.getRGB(i, j));
+                if(!cor.equals(preto)){
+                    remove = false;
+                    for(m=-1; m<=1; m++)
+                        for(n=-1; n<=1; n++)
+                            if(mascara[m+1][n+1] == 1 && img.getRGB(i+m, j+n) == preto.getRGB())
+                                remove = true;
+                    if(remove)
+                        saida.setRGB(i, j, preto.getRGB());
+                    else
+                        saida.setRGB(i, j, cor.getRGB());
+                }
+            }
+        
+        return saida;
+    }
 }
