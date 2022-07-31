@@ -10,6 +10,7 @@ import Manipulacao.Histograma;
 import Manipulacao.FiltrosPrimeiroBim;
 import Manipulacao.FiltrosSegundoBim;
 import Manipulacao.MascarasPrimeiroBim;
+import Manipulacao.afinamento.ZhangSuen;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
@@ -93,9 +94,10 @@ public class UI_Principal extends javax.swing.JFrame {
         btnColorizacao = new javax.swing.JMenuItem();
         btnEqualizacaoHSI = new javax.swing.JMenuItem();
         btnLaplacianoGaussiana = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        btnValorOtsu = new javax.swing.JMenuItem();
         btnDilatacao = new javax.swing.JMenuItem();
         btnErosao = new javax.swing.JMenuItem();
+        btnZhangSuen = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Projeto PDI");
@@ -392,13 +394,13 @@ public class UI_Principal extends javax.swing.JFrame {
         });
         jMenu3.add(btnLaplacianoGaussiana);
 
-        jMenuItem1.setText("Valor de Otsu");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        btnValorOtsu.setText("Valor de Otsu");
+        btnValorOtsu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                btnValorOtsuActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        jMenu3.add(btnValorOtsu);
 
         btnDilatacao.setText("Dilatação");
         btnDilatacao.addActionListener(new java.awt.event.ActionListener() {
@@ -415,6 +417,14 @@ public class UI_Principal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(btnErosao);
+
+        btnZhangSuen.setText("ZhangSuen");
+        btnZhangSuen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZhangSuenActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnZhangSuen);
 
         jMenuBar1.add(jMenu3);
 
@@ -752,11 +762,11 @@ public class UI_Principal extends javax.swing.JFrame {
         this.renderImgSaida();
     }//GEN-LAST:event_btnLaplacianoGaussianaActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void btnValorOtsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValorOtsuActionPerformed
         int valorOtsu = FiltrosSegundoBim.otsuThreshold(this.imgEntrada);
         
         JOptionPane.showMessageDialog(this, "O valor da limiarização deve ser: " + valorOtsu +".");
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_btnValorOtsuActionPerformed
 
     private void btnDilatacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDilatacaoActionPerformed
         this.imgSaida = FiltrosSegundoBim.dilatacao(this.imgEntrada);
@@ -767,6 +777,11 @@ public class UI_Principal extends javax.swing.JFrame {
         this.imgSaida = FiltrosSegundoBim.erosao(this.imgEntrada);
         this.renderImgSaida();
     }//GEN-LAST:event_btnErosaoActionPerformed
+
+    private void btnZhangSuenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZhangSuenActionPerformed
+       this.imgSaida = ZhangSuen.afinamento(this.imgEntrada);
+       this.renderImgSaida();
+    }//GEN-LAST:event_btnZhangSuenActionPerformed
     
     private void renderImgEntrada()
     {
@@ -846,13 +861,14 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnSepararCanais;
     private javax.swing.JMenuItem btnTonsCinza;
     private javax.swing.JButton btnTransfere;
+    private javax.swing.JMenuItem btnValorOtsu;
+    private javax.swing.JMenuItem btnZhangSuen;
     private javax.swing.JMenuItem btnbordasH;
     private javax.swing.JMenuItem filtroPontoMax;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel labelCoordX;
