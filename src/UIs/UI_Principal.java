@@ -94,6 +94,8 @@ public class UI_Principal extends javax.swing.JFrame {
         btnEqualizacaoHSI = new javax.swing.JMenuItem();
         btnLaplacianoGaussiana = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        btnDilatacao = new javax.swing.JMenuItem();
+        btnErosao = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Projeto PDI");
@@ -397,6 +399,22 @@ public class UI_Principal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem1);
+
+        btnDilatacao.setText("Dilatação");
+        btnDilatacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDilatacaoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnDilatacao);
+
+        btnErosao.setText("Erosão");
+        btnErosao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnErosaoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnErosao);
 
         jMenuBar1.add(jMenu3);
 
@@ -739,6 +757,16 @@ public class UI_Principal extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(this, "O valor da limiarização deve ser: " + valorOtsu +".");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void btnDilatacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDilatacaoActionPerformed
+        this.imgSaida = FiltrosSegundoBim.dilatacao(this.imgEntrada);
+        this.renderImgSaida();
+    }//GEN-LAST:event_btnDilatacaoActionPerformed
+
+    private void btnErosaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnErosaoActionPerformed
+        this.imgSaida = FiltrosSegundoBim.erosao(this.imgEntrada);
+        this.renderImgSaida();
+    }//GEN-LAST:event_btnErosaoActionPerformed
     
     private void renderImgEntrada()
     {
@@ -798,7 +826,9 @@ public class UI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnCompressaoDinamica;
     private javax.swing.JMenuItem btnConversor;
     private javax.swing.JMenuItem btnDCT;
+    private javax.swing.JMenuItem btnDilatacao;
     private javax.swing.JMenuItem btnEqualizacaoHSI;
+    private javax.swing.JMenuItem btnErosao;
     private javax.swing.JMenuItem btnHistograma;
     private javax.swing.JMenuItem btnIDCT;
     private javax.swing.JMenuItem btnLaplace;
